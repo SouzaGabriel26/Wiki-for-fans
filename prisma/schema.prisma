@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Characters {
+  id             String    @id @default(uuid()) @db.Uuid
+  name           String
+  nickName       String    @map("nick_name")
+  description    String
+  age            Int
+  favoritePhrase String
+  personalities  String[]
+  enemies        String[]
+  friends        String[]
+  isProtagonit   Boolean
+  createdAt      DateTime? @default(now())
+  serieId        String    @map("serie_id") @db.Uuid
+
+  serie Serie @relation(fields: [serieId], references: [id], onDelete: Cascade)
+
+  @@map("characters")
+}
+
+model Serie {
+  id          String       @id @default(uuid()) @db.Uuid
+  name        String       @unique
+  description String
+  characters  Characters[]
+
+  @@map("series")
+}
