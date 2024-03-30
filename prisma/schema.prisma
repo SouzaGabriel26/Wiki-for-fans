@@ -18,6 +18,7 @@ model Characters {
   enemies        String[]
   friends        String[]
   isProtagonit   Boolean
+  image          String?
   createdAt      DateTime? @default(now())
   serieId        String    @map("serie_id") @db.Uuid
 
@@ -27,10 +28,21 @@ model Characters {
 }
 
 model Serie {
-  id          String       @id @default(uuid()) @db.Uuid
-  name        String       @unique
+  id          String   @id @default(uuid()) @db.Uuid
+  name        String   @unique
   description String
-  characters  Characters[]
+  seasons     Int
+  episodes    Int
+  platforms   String[]
+  status      Status
+
+  characters Characters[]
 
   @@map("series")
+}
+
+enum Status {
+  FINISHED
+  CANCELED
+  IN_PROGRESS
 }
