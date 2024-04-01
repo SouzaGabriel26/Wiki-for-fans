@@ -25,7 +25,7 @@ async function main() {
         'Thomas Michael Shelby OBE DCM MM MP is the leader of the Birmingham criminal gang, the Peaky Blinders, and the patriarch of the Shelby Family.',
       age: 40,
       favoritePhrase: 'I think, therefore I am',
-      isProtagonit: true,
+      isProtagonist: true,
       enemies: {
         set: [
           'Alfie Solomons',
