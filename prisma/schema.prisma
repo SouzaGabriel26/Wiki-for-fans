@@ -10,33 +10,31 @@ datasource db {
 model Characters {
   id             String    @id @default(uuid()) @db.Uuid
   name           String
-  nickName       String    @map("nick_name")
+  nickName       String?   @map("nick_name")
   description    String
   age            Int
-  favoritePhrase String
   personalities  String[]
   enemies        String[]
   friends        String[]
-  isProtagonit   Boolean
-  image          String?
-  createdAt      DateTime? @default(now())
   serieId        String    @map("serie_id") @db.Uuid
-
-  serie Serie @relation(fields: [serieId], references: [id], onDelete: Cascade)
+  image          String?
+  createdAt      DateTime? @default(now()) @map("created_at")
+  favoritePhrase String?   @map("favorite_phrase")
+  isProtagonist  Boolean   @map("is_protagonist")
+  serie          Serie     @relation(fields: [serieId], references: [id], onDelete: Cascade)
 
   @@map("characters")
 }
 
 model Serie {
-  id          String   @id @default(uuid()) @db.Uuid
-  name        String   @unique
+  id          String       @id @default(uuid()) @db.Uuid
+  name        String       @unique
   description String
-  seasons     Int
   episodes    Int
   platforms   String[]
+  seasons     Int
   status      Status
-
-  characters Characters[]
+  characters  Characters[]
 
   @@map("series")
 }
