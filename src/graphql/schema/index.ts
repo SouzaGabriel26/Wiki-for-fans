@@ -23,7 +23,7 @@ export const typeDefs = gql`
     episodes: Int
     platforms: [String]
     seasons: Int
-    status: String
+    status: Status
     characters: [Character]!
   }
 
@@ -34,6 +34,12 @@ export const typeDefs = gql`
     getCharacterById(id: ID!): Character
   }
 
+  enum Status {
+    FINISHED
+    CANCELED
+    IN_PROGRESS
+  }
+
   type Mutation {
     createSerie(
       name: String!
@@ -41,7 +47,7 @@ export const typeDefs = gql`
       episodes: Int!
       platforms: [String]!
       seasons: Int!
-      status: String!
+      status: Status!
     ): Serie
 
     createCharacter(

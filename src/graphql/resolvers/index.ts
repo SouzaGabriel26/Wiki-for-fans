@@ -1,0 +1,43 @@
+import { Context } from '../context';
+import {
+  CreateCharacterArgs,
+  CreateSerieArgs,
+} from '../context/prismaMutations';
+
+export const resolvers = {
+  Query: {
+    series: async (_parent: any, _args: any, context: Context) =>
+      await context.queries.getAllSeries(),
+
+    characters: async (_parent: any, _args: any, context: Context) =>
+      await context.queries.getAllCharacters(),
+
+    getSerieByName: async (
+      _parent: any,
+      args: { name: string },
+      context: Context,
+    ) => await context.queries.getSerieByName(args.name),
+
+    getCharacterById: async (
+      _parent: any,
+      args: { id: string },
+      context: Context,
+    ) => await context.queries.getCharacterById(args.id),
+  },
+
+  Mutation: {
+    createSerie: async (
+      _parent: any,
+      args: CreateSerieArgs,
+      context: Context,
+    ) => {
+      return await context.mutations.createSerie(args);
+    },
+
+    createCharacter: async (
+      _parent: any,
+      args: CreateCharacterArgs,
+      context: Context,
+    ) => await context.mutations.createCharacter(args),
+  },
+};
