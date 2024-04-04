@@ -59,5 +59,11 @@ export const resolvers = {
       args: { id: string },
       context: Context,
     ) => await context.mutations.deleteCharacterById(args.id),
+
+    deleteSerieById: async (
+      _parent: any,
+      args: { id: string },
+      context: Context,
+    ) => await context.mutations.deleteSerieById(args.id),
   },
 };

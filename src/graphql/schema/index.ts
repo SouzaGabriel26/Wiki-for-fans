@@ -87,6 +87,8 @@ export const typeDefs = gql`
       serieId: ID
     ): Character
 
+    deleteSerieById(id: ID!): Serie
+
     deleteCharacterById(id: ID!): Character
   }
 `;

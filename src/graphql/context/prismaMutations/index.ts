@@ -98,12 +98,30 @@ async function deleteCharacterById(id: string) {
   }
 }
 
+async function deleteSerieById(id: string) {
+  try {
+    const deletedSerie = await prisma.serie.delete({
+      where: {
+        id,
+      },
+      include: {
+        characters: true,
+      },
+    });
+
+    return deletedSerie;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export const mutations = Object.freeze({
   createSerie,
   createCharacter,
   updateSerieById,
   updateCharacterById,
   deleteCharacterById,
+  deleteSerieById,
 });
 
 export type MutationsType = typeof mutations;
