@@ -72,5 +72,19 @@ export const typeDefs = gql`
       seasons: Int
       status: Status
     ): Serie
+
+    updateCharacterById(
+      id: ID!
+      name: String
+      nickName: String
+      description: String
+      age: Int
+      personalities: [String]
+      friends: [String]
+      enemies: [String]
+      favoritePhrase: String
+      isProtagonist: Boolean
+      serieId: ID
+    ): Character
   }
 `;
