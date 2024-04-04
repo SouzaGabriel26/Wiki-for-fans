@@ -1,7 +1,11 @@
 import { prisma } from '@/lib/prismaClient';
 
 async function getAllSeries() {
-  return await prisma.serie.findMany();
+  return await prisma.serie.findMany({
+    include: {
+      characters: true,
+    },
+  });
 }
 
 async function getAllCharacters() {

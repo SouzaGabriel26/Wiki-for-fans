@@ -24,7 +24,7 @@ export const typeDefs = gql`
     platforms: [String]
     seasons: Int
     status: Status
-    characters: [Character]!
+    characters: [Character]
   }
 
   type Query {
@@ -62,5 +62,15 @@ export const typeDefs = gql`
       isProtagonist: Boolean!
       serieId: ID!
     ): Character
+
+    updateSerieById(
+      id: ID!
+      name: String
+      description: String
+      episodes: Int
+      platforms: [String]
+      seasons: Int
+      status: Status
+    ): Serie
   }
 `;
