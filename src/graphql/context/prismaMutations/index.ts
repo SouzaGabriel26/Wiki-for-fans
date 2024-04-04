@@ -11,7 +11,7 @@ export type CreateSerieArgs = {
 
 export type CreateCharacterArgs = {
   name: string;
-  nickNamea?: string;
+  nickName?: string;
   description: string;
   age: number;
   personalities: string[];
@@ -30,6 +30,20 @@ export type UpdateSerieArgs = {
   platforms?: string[];
   seasons?: number;
   status?: 'FINISHED' | 'CANCELED' | 'IN_PROGRESS';
+};
+
+export type UpdateCharacterArgs = {
+  id: string;
+  name?: string;
+  nickName?: string;
+  description?: string;
+  age?: number;
+  personalities?: string[];
+  friends?: string[];
+  enemies?: string[];
+  favoritePhrase?: string;
+  isProtagonist?: boolean;
+  serieId?: string;
 };
 
 async function createSerie(args: CreateSerieArgs) {
@@ -59,10 +73,22 @@ async function updateSerieById({ id, ...args }: UpdateSerieArgs) {
   });
 }
 
+async function updateCharacterById({ id, ...args }: UpdateCharacterArgs) {
+  return await prisma.characters.update({
+    data: {
+      ...args,
+    },
+    where: {
+      id,
+    },
+  });
+}
+
 export const mutations = Object.freeze({
   createSerie,
   createCharacter,
   updateSerieById,
+  updateCharacterById,
 });
 
 export type MutationsType = typeof mutations;

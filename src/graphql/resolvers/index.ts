@@ -2,6 +2,7 @@ import { Context } from '../context';
 import {
   CreateCharacterArgs,
   CreateSerieArgs,
+  UpdateCharacterArgs,
   UpdateSerieArgs,
 } from '../context/prismaMutations';
 
@@ -46,5 +47,11 @@ export const resolvers = {
       args: UpdateSerieArgs,
       context: Context,
     ) => await context.mutations.updateSerieById(args),
+
+    updateCharacterById: async (
+      _parent: any,
+      args: UpdateCharacterArgs,
+      context: Context,
+    ) => await context.mutations.updateCharacterById(args),
   },
 };
