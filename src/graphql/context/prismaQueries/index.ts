@@ -9,7 +9,11 @@ async function getAllSeries() {
 }
 
 async function getAllCharacters() {
-  return await prisma.characters.findMany();
+  return await prisma.characters.findMany({
+    include: {
+      serie: true,
+    },
+  });
 }
 
 async function getSerieByName(name: string) {

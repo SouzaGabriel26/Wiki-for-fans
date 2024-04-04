@@ -53,5 +53,11 @@ export const resolvers = {
       args: UpdateCharacterArgs,
       context: Context,
     ) => await context.mutations.updateCharacterById(args),
+
+    deleteCharacterById: async (
+      _parent: any,
+      args: { id: string },
+      context: Context,
+    ) => await context.mutations.deleteCharacterById(args.id),
   },
 };

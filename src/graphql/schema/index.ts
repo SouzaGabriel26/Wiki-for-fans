@@ -86,5 +86,7 @@ export const typeDefs = gql`
       isProtagonist: Boolean
       serieId: ID
     ): Character
+
+    deleteCharacterById(id: ID!): Character
   }
 `;
