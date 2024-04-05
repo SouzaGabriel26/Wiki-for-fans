@@ -4,14 +4,33 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 First, run the development server:
 
+**You will need to have docker installed**
+
+create a `.env` file based on `.env.development`
+
 ```bash
-npm run dev
-# or
+# Install dependencies
+yarn
+```
+
+```bash
+# Run the `compose` file to create the container
+npm run compose:up
+```
+
+```bash
+# synchronize the Prisma schema with database
+yarn prisma db push
+```
+
+```bash
+# Populate the database
+yarn prisma db seed
+```
+
+```bash
+# Run the project
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
