@@ -6,6 +6,8 @@ First, run the development server:
 
 **You will need to have docker installed**
 
+create a `.env` file based on `.env.development`
+
 ```bash
 # Install dependencies
 yarn
