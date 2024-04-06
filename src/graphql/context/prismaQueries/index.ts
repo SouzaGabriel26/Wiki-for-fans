@@ -21,6 +21,9 @@ async function getSerieByName(name: string) {
     where: {
       name,
     },
+    include: {
+      characters: true,
+    },
   });
 }
 
