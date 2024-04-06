@@ -1,6 +1,7 @@
-import { CreateSerieArgs } from '@/graphql/context/prismaMutations';
+import { gql } from '@apollo/client';
 
-const API_URL = 'http://localhost:3000/api/graphql';
+import { CreateSerieArgs } from '@/graphql/context/prismaMutations';
+import { client } from '@/lib/clientApi';
 
 export const serie = Object.freeze({
   getSeries,
@@ -8,7 +9,7 @@ export const serie = Object.freeze({
 });
 
 async function getSeries() {
-  const query = `
+  const GET_SERIES_QUERY = gql`
     query {
       series {
         id
@@ -17,22 +18,19 @@ async function getSeries() {
     }
   `;
 
-  const response = await fetch(API_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ query }),
+  const { data, error } = await client.query({
+    query: GET_SERIES_QUERY,
   });
 
-  const result = await response.json();
-
-  return result.data.series as Serie[];
+  return {
+    returnedSeries: data.series as Serie[],
+    error,
+  };
 }
 
 async function getSerieByName(name: string) {
-  const query = `
-    query($name: String!) {
+  const GET_SERIE_BY_NAME = gql`
+    query ($name: String!) {
       getSerieByName(name: $name) {
         id
         name
@@ -49,20 +47,15 @@ async function getSerieByName(name: string) {
     }
   `;
 
-  const response = await fetch(API_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      query,
-      variables: { name },
-    }),
+  const { data, error } = await client.query({
+    query: GET_SERIE_BY_NAME,
+    variables: { name },
   });
 
-  const result = await response.json();
-
-  return result.data.getSerieByName as SerieById;
+  return {
+    returnedSerie: data.getSerieByName as SerieById,
+    error,
+  };
 }
 
 type SerieById = CreateSerieArgs & {
