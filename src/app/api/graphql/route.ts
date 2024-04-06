@@ -1,9 +1,9 @@
 import { ApolloServer } from '@apollo/server';
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
 
-import { createContext } from '@/graphql/context';
-import { resolvers } from '@/graphql/resolvers';
-import { typeDefs } from '@/graphql/schema';
+import { createContext } from '@/app/api/configs/context';
+import { resolvers } from '@/app/api/configs/resolvers';
+import { typeDefs } from '@/app/api/configs/schema';
 
 const server = new ApolloServer({ typeDefs, resolvers });
 

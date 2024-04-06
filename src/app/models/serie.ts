@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-import { CreateSerieArgs } from '@/graphql/context/prismaMutations';
+import { CreateSerieArgs } from '@/app/api/configs/context/prismaMutations';
 import { client } from '@/lib/clientApi';
 
 export const serie = Object.freeze({
