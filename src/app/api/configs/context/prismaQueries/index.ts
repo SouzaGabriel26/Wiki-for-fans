@@ -32,6 +32,9 @@ async function getCharacterById(id: string) {
     where: {
       id,
     },
+    include: {
+      serie: true,
+    },
   });
 }
 

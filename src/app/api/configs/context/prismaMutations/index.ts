@@ -17,6 +17,7 @@ export type CreateCharacterArgs = {
   personalities: string[];
   friends: string[];
   enemies: string[];
+  image?: string;
   favoritePhrase?: string;
   isProtagonist: boolean;
   serieId: string;
@@ -41,6 +42,7 @@ export type UpdateCharacterArgs = {
   personalities?: string[];
   friends?: string[];
   enemies?: string[];
+  image?: string;
   favoritePhrase?: string;
   isProtagonist?: boolean;
   serieId?: string;
