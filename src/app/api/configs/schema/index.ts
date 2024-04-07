@@ -10,6 +10,7 @@ export const typeDefs = gql`
     personalities: [String]
     friends: [String]
     enemies: [String]
+    image: String
     createdAt: String
     favoritePhrase: String
     isProtagonist: Boolean
@@ -58,6 +59,7 @@ export const typeDefs = gql`
       personalities: [String]!
       friends: [String]!
       enemies: [String]!
+      image: String
       favoritePhrase: String
       isProtagonist: Boolean!
       serieId: ID!
@@ -82,6 +84,7 @@ export const typeDefs = gql`
       personalities: [String]
       friends: [String]
       enemies: [String]
+      image: String
       favoritePhrase: String
       isProtagonist: Boolean
       serieId: ID
