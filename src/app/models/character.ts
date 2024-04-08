@@ -24,7 +24,7 @@ async function getAll() {
   });
 
   return {
-    returnetCharacters: data.characters as Character,
+    returnedCharacters: data.characters as Character[],
     error,
   };
 }
@@ -65,7 +65,7 @@ async function getById(id: string) {
   };
 }
 
-type Character = {
+export type Character = {
   id: string;
   name: string;
   nickName: string;

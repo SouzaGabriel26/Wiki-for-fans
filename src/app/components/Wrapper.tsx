@@ -4,7 +4,7 @@ type WrapperProps = {
 
 export function Wrapper({ children }: WrapperProps) {
   return (
-    <div className="mx-auto mt-10 h-full w-full max-w-5xl shadow-xl">
+    <div className="mx-auto h-full w-full max-w-5xl rounded-md bg-white shadow-xl md:my-10">
       {children}
     </div>
   );
