@@ -1,7 +1,8 @@
+import { createCharacterDatasource } from '@/data/character';
+
 import { CharactersList } from './components/CharactersList';
 import { Header } from './components/Header';
 import { Wrapper } from './components/Wrapper';
-import { createCharacterDatasource } from './data/character';
 
 export default async function Home() {
   const characterDatasource = createCharacterDatasource();
