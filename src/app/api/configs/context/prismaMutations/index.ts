@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/prismaClient';
+import prisma from '@/lib/prismaClient';
 
 export type CreateSerieArgs = {
   name: string;

@@ -1,18 +1,17 @@
-import { Card } from './components/Card';
+import { CharactersList } from './components/CharactersList';
 import { Header } from './components/Header';
 import { Wrapper } from './components/Wrapper';
+import { character } from './models/character';
 
 export default async function Home() {
+  const { returnedCharacters } = await character.getAll();
+
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full flex-col overflow-y-hidden bg-slate-200">
       <Header />
       <Wrapper>
-        <main className="flex flex-grow flex-col items-center justify-center">
-          <div className="grid w-full place-items-center justify-center gap-4 overflow-y-auto p-6 sm:grid-cols-2 md:grid-cols-4">
-            {Array.from({ length: 10 }).map((_, index) => (
-              <Card key={index} />
-            ))}
-          </div>
+        <main className="flex h-full flex-grow flex-col items-center justify-center">
+          <CharactersList characters={returnedCharacters} />
         </main>
       </Wrapper>
     </div>
