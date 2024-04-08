@@ -1,10 +1,11 @@
 import { CharactersList } from './components/CharactersList';
 import { Header } from './components/Header';
 import { Wrapper } from './components/Wrapper';
-import { character } from './models/character';
+import { createCharacterDatasource } from './data/character';
 
 export default async function Home() {
-  const { returnedCharacters } = await character.getAll();
+  const characterDatasource = createCharacterDatasource();
+  const { returnedCharacters } = await characterDatasource.getAll();
 
   return (
     <div className="flex h-full flex-col overflow-y-hidden bg-slate-200">

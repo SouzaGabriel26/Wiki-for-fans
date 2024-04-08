@@ -2,7 +2,7 @@ import { cn } from '@/lib/cn';
 
 import { Card } from './Card';
 import { Tooltip } from './Tooltip';
-import { Character } from '../models/character';
+import { Character } from '../data/character';
 
 type CharactersListProps = {
   characters: Character[];
