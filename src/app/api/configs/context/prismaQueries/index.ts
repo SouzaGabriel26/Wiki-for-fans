@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/prismaClient';
+import prisma from '@/lib/prismaClient';
 
 async function getAllSeries() {
   return await prisma.serie.findMany({
