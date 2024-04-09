@@ -1,37 +1,35 @@
-name: CI
+name: run tests CI
 
 on:
+  push:
+    branches: [main, dev]
   pull_request:
-    branches: ['main']
+    branches: [main]
 
 jobs:
-  build:
+  ci:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [20.x]
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Use Node.js 20.x
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20.x'
-          cache: 'yarn'
+    - name: Use Node.js 18.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+        cache: 'yarn'
 
-      - run: npm pkg delete scripts.prepare
+    - run: npm pkg delete scripts.prepare
 
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
 
-      - name: Start docker container
-        run: yarn services:up
+    - name: Start docker container
+      run: yarn services:up
 
-      - name: Run tests
-        run: yarn test
+    - name: Run tests
+      run: yarn test
 
-      - name: Stop docker container
-        run: yarn services:down
+    - name: Stop docker container
+      run: yarn services:down
