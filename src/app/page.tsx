@@ -9,7 +9,7 @@ export default async function Home() {
   const { returnedCharacters } = await characterDatasource.getAll();
 
   return (
-    <div className="flex h-full flex-col overflow-y-hidden bg-slate-200">
+    <div className=" flex h-full flex-col overflow-y-hidden bg-slate-200">
       <Header />
       <Wrapper>
         <main className="flex h-full flex-grow flex-col items-center justify-center">
