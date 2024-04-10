@@ -11,6 +11,9 @@ export function createCharacterDatasource() {
           name
           nickName
           image
+          serie {
+            name
+          }
         }
       }
     `;
@@ -72,6 +75,9 @@ export type Character = {
   name: string;
   nickName: string;
   image: string;
+  serie: {
+    name: string;
+  };
 };
 
 type CharacterById = {

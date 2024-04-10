@@ -21,6 +21,10 @@ beforeEach(async () => {
   });
 });
 
+afterAll(async () => {
+  await prisma.serie.deleteMany();
+});
+
 describe('> Serie schema (Query)', () => {
   test('Trying to get all series', async () => {
     const { data } = await client.query({
