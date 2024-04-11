@@ -64,9 +64,36 @@ export function createCharacterDatasource() {
     };
   }
 
+  async function getAllBySerieId(serieId: string) {
+    const GET_CHARACTERS_BY_SERIE_ID = gql`
+      query ($serieId: ID!) {
+        getCharactersBySerieId(serieId: $serieId) {
+          id
+          name
+          nickName
+          image
+          serie {
+            name
+          }
+        }
+      }
+    `;
+
+    const { data, error } = await client.query({
+      query: GET_CHARACTERS_BY_SERIE_ID,
+      variables: { serieId },
+    });
+
+    return {
+      returnedCharacters: data.getCharactersBySerieId as Character[],
+      error,
+    };
+  }
+
   return Object.freeze({
     getAll,
     getById,
+    getAllBySerieId,
   });
 }
 

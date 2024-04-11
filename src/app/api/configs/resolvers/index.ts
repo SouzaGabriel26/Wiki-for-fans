@@ -25,6 +25,12 @@ export const resolvers = {
       args: { id: string },
       context: Context,
     ) => await context.queries.getCharacterById(args.id),
+
+    getCharactersBySerieId: async (
+      _parent: any,
+      args: { serieId: string },
+      context: Context,
+    ) => await context.queries.getCharactersBySerieId(args.serieId),
   },
 
   Mutation: {
