@@ -2,13 +2,17 @@ import { cn } from '@/lib/cn';
 
 import { Card } from './Card';
 import { Tooltip } from './Tooltip';
-import { Character } from '../../data/character';
+import { createCharacterDatasource } from '../../data/character';
 
 type CharactersListProps = {
-  characters: Character[];
+  serieId: string;
 };
 
-export function CharactersList({ characters }: CharactersListProps) {
+export async function CharactersList({ serieId }: CharactersListProps) {
+  const characterDatasource = createCharacterDatasource();
+  const { returnedCharacters: characters } =
+    await characterDatasource.getAllBySerieId(serieId);
+
   const charactersCount = characters.length;
 
   const grid = charactersCount > 4 ? 4 : charactersCount;
@@ -25,7 +29,7 @@ export function CharactersList({ characters }: CharactersListProps) {
   return (
     <div
       className={cn(
-        'grid h-full w-full place-items-center justify-center gap-6 overflow-y-auto px-6 pb-20 pt-6 md:pb-6',
+        'grid h-full w-full place-items-center justify-center gap-6 px-6 pb-20 pt-6 md:pb-6',
         {
           'md:grid-cols-1': grid === 1,
           'md:grid-cols-2': grid === 2,
