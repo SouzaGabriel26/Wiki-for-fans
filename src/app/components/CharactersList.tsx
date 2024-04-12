@@ -40,7 +40,11 @@ export async function CharactersList({ serieId }: CharactersListProps) {
     >
       {characters.length > 0 &&
         characters.map((character) => (
-          <Tooltip key={character.id} tip={character.name}>
+          <Tooltip
+            key={character.id}
+            tip={character.name}
+            className="last:pb-20 md:last:pb-0"
+          >
             <Card character={character} />
           </Tooltip>
         ))}
