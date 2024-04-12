@@ -1,5 +1,3 @@
-import { createSerieDatasource } from '@/data/serie';
-
 import { CharactersList } from './components/CharactersList';
 import { Header } from './components/Header';
 import { SeriesNavigation } from './components/SeriesNavigation';
@@ -14,15 +12,12 @@ type HomeProps = {
 export default async function Home({ searchParams }: HomeProps) {
   const serieId = searchParams?.serieId;
 
-  const serieDataSource = createSerieDatasource();
-  const { returnedSeries } = await serieDataSource.getAll();
-
   return (
     <div className="flex h-full flex-col overflow-y-hidden bg-slate-200">
       <Header />
       <Wrapper>
-        <SeriesNavigation series={returnedSeries} />
-        <main className="flex flex-1 flex-col items-center justify-center overflow-y-auto ">
+        <SeriesNavigation serieId={serieId ?? ''} />
+        <main className="flex flex-1 flex-col items-center justify-center overflow-y-auto">
           {!serieId ? (
             <p>
               If you want to see the characters of a serie, click on the serie
