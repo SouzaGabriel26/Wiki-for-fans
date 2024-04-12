@@ -38,11 +38,23 @@ async function getCharacterById(id: string) {
   });
 }
 
+async function getCharactersBySerieId(serieId: string) {
+  return await prisma.characters.findMany({
+    where: {
+      serieId,
+    },
+    include: {
+      serie: true,
+    },
+  });
+}
+
 export const queries = Object.freeze({
   getAllSeries,
   getAllCharacters,
   getSerieByName,
   getCharacterById,
+  getCharactersBySerieId,
 });
 
 export type QueriesType = typeof queries;

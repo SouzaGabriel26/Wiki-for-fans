@@ -33,6 +33,7 @@ export const typeDefs = gql`
     characters: [Character]!
     getSerieByName(name: String!): Serie
     getCharacterById(id: ID!): Character
+    getCharactersBySerieId(serieId: ID!): [Character]
   }
 
   enum Status {

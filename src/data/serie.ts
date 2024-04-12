@@ -67,7 +67,7 @@ type SerieById = CreateSerieArgs & {
   }[];
 };
 
-type Serie = {
+export type Serie = {
   id: string;
   name: string;
 };
