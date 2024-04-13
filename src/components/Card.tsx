@@ -1,8 +1,7 @@
 import Image from 'next/image';
 
+import { Character } from '@/data/character';
 import { cn } from '@/lib/cn';
-
-import { Character } from '../../data/character';
 
 type CardProps = {
   character: Character;
