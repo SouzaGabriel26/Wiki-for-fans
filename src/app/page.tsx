@@ -1,7 +1,7 @@
-import { CharactersList } from './components/CharactersList';
-import { Header } from './components/Header';
-import { SeriesNavigation } from './components/SeriesNavigation';
-import { Wrapper } from './components/Wrapper';
+import { CharactersList } from '@/components/CharactersList';
+import { Header } from '@/components/Header';
+import { SeriesNavigation } from '@/components/SeriesNavigation';
+import { Wrapper } from '@/components/Wrapper';
 
 type HomeProps = {
   searchParams?: {

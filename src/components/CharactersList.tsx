@@ -1,8 +1,7 @@
+import { Card } from '@/components/Card';
+import { Tooltip } from '@/components/Tooltip';
+import { createCharacterDatasource } from '@/data/character';
 import { cn } from '@/lib/cn';
-
-import { Card } from './Card';
-import { Tooltip } from './Tooltip';
-import { createCharacterDatasource } from '../../data/character';
 
 type CharactersListProps = {
   serieId: string;
