@@ -16,22 +16,30 @@ export async function SeriesNavigation({ serieId }: SeriesNavigationProps) {
   }
 
   return (
-    <nav className="flex items-center justify-center pt-6">
-      {series.map((serie) => (
-        <Link
-          key={serie.id}
-          href={{
-            pathname: '/',
-            query: { serieId: serie.id },
-          }}
-          className={cn(
-            'animate-show-content-up px-4 py-2 text-slate-600 transition-colors hover:text-slate-800',
-            serieId === serie.id ? 'text-slate-900 underline' : '',
-          )}
-        >
-          <button>{serie.name}</button>
+    <>
+      <nav className="hidden items-center justify-center pt-6 md:flex">
+        {series.map((serie) => (
+          <Link
+            key={serie.id}
+            href={{
+              pathname: '/',
+              query: { serieId: serie.id },
+            }}
+            className={cn(
+              'animate-show-content-up px-4 py-2 text-slate-600 transition-colors hover:text-slate-800',
+              serieId === serie.id ? 'text-slate-900 underline' : '',
+            )}
+          >
+            <button>{serie.name}</button>
+          </Link>
+        ))}
+      </nav>
+
+      <div className="mt-2 flex w-full items-center justify-center md:hidden">
+        <Link href="/series-list" className="text-slate-800">
+          Show series
         </Link>
-      ))}
-    </nav>
+      </div>
+    </>
   );
 }
