@@ -1,4 +1,7 @@
+import { Suspense } from 'react';
+
 import { CharactersList } from '@/components/CharactersList';
+import CharacterslistLoading from '@/components/CharacterslistLoading';
 import { Header } from '@/components/Header';
 import { SeriesNavigation } from '@/components/SeriesNavigation';
 import { Wrapper } from '@/components/Wrapper';
@@ -24,7 +27,9 @@ export default async function Home({ searchParams }: HomeProps) {
               name
             </p>
           ) : (
-            <CharactersList serieId={serieId} />
+            <Suspense fallback={<CharacterslistLoading />}>
+              <CharactersList serieId={serieId} />
+            </Suspense>
           )}
         </main>
       </Wrapper>
