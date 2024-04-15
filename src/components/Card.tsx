@@ -12,7 +12,7 @@ export function Card({ character }: CardProps) {
     <div
       tabIndex={0}
       aria-label={character.name}
-      className="group mx-auto max-w-sm rounded-md bg-slate-500 px-6 py-4 shadow-md shadow-black/65 md:p-3"
+      className="group mx-auto max-w-sm cursor-pointer rounded-md bg-slate-500 px-6 py-4 shadow-md shadow-black/65 md:p-3"
     >
       <div className="flex h-full flex-col justify-between">
         <div className="text-center">
@@ -28,7 +28,7 @@ export function Card({ character }: CardProps) {
           )}
         >
           <Image
-            className="rounded-md"
+            className="rounded-md object-cover"
             src={
               character?.image ??
               'https://via.placeholder.com/200x270.png?text=No+Image'
