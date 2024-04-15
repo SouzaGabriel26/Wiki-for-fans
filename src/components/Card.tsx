@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { Character } from '@/data/character';
 import { cn } from '@/lib/cn';
@@ -21,7 +22,8 @@ export function Card({ character }: CardProps) {
           </h2>
           <p className="text-gray-300">{character.nickName}</p>
         </div>
-        <div
+        <Link
+          href={`/character/${character.id}`}
           className={cn(
             'relative mx-auto mt-4 h-[270px] w-[200px] transition-transform duration-300 ease-in-out group-hover:scale-105',
             'md:h-[200px] md:w-[150px]',
@@ -38,7 +40,7 @@ export function Card({ character }: CardProps) {
             fill
             sizes="100%"
           />
-        </div>
+        </Link>
       </div>
       <div className="mt-4 h-2.5 md:mt-2">
         <p className="hidden animate-show-content-up text-center text-xs text-white group-hover:block">
