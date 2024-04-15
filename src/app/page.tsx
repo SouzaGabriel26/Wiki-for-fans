@@ -22,7 +22,7 @@ export default async function Home({ searchParams }: HomeProps) {
         <SeriesNavigation serieId={serieId ?? ''} />
         <main className="flex flex-1 flex-col items-center justify-center overflow-y-auto">
           {!serieId ? (
-            <p>
+            <p className="text-center">
               If you want to see the characters of a serie, click on the serie
               name
             </p>
