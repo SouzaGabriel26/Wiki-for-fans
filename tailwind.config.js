@@ -9,7 +9,7 @@ const config = {
             opacity: 0,
           },
           '100%': {
-            transform: 'translateY(0)',
+            transform: 'translateY(-50%)',
             opacity: 1,
           },
         },

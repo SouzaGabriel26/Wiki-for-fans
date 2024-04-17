@@ -20,10 +20,10 @@ export default async function Page({ params }: Params) {
   return (
     <div className="flex h-screen w-screen items-center justify-center overflow-hidden bg-slate-200">
       <Wrapper className="relative">
-        <NavigateBack className="absolute left-10 top-10 hover:underline" />
-        <SerieCTA />
+        <NavigateBack className="absolute left-2 top-2 hover:underline md:left-10 md:top-10" />
         <div className="flex flex-col items-center justify-center gap-4 overflow-hidden p-4">
           <h1 className="text-center text-2xl">{returnedCharacter.name}</h1>
+          <SerieCTA />
           {returnedCharacter.isProtagonist && (
             <div className="rounded-md bg-green-100 px-2">
               <span className="text-sm text-slate-800">Protagonist 🌟</span>
@@ -31,7 +31,7 @@ export default async function Page({ params }: Params) {
           )}
           <div className="relative">
             <Image
-              className="h-auto max-h-[350px] w-auto max-w-[400px] rounded-md object-cover"
+              className="h-auto max-h-[350px] w-auto max-w-[400px] rounded-md object-cover shadow-md shadow-black"
               src={returnedCharacter?.image ?? ''}
               alt={`${returnedCharacter.nickName} image`}
               priority
@@ -105,14 +105,18 @@ export default async function Page({ params }: Params) {
 
   function SerieCTA() {
     return (
-      <div className="absolute right-10 top-10 flex flex-col rounded-md bg-slate-200 p-2">
+      <div className="right-10 top-10 flex flex-col rounded-md bg-slate-200 p-2 md:absolute">
         <Link href="#">{returnedCharacter.serie.name}</Link>
 
-        {returnedCharacter.serie.platforms.length > 0 && (
-          <span className="text-center text-xs text-slate-600">
-            {returnedCharacter.serie.platforms.join(', ')}
-          </span>
-        )}
+        {returnedCharacter.serie.platforms.length > 0 &&
+          returnedCharacter.serie.platforms.map((platform, idx) => (
+            <span
+              key={platform + idx}
+              className="text-center text-xs text-slate-600"
+            >
+              {platform}
+            </span>
+          ))}
       </div>
     );
   }

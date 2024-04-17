@@ -7,13 +7,13 @@ import { Tooltip } from './Tooltip';
 
 export default function CallToActions() {
   return (
-    <div className="fixed bottom-2 right-5 flex flex-col items-center justify-center gap-2 md:absolute">
+    <div className="fixed bottom-2 right-3 flex flex-col items-center justify-center gap-2 md:absolute md:right-5">
       {actions.map((action) => (
         <Link key={action.href} href={action.href}>
           <Tooltip
             tip={action.tooltip}
             className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-slate-500 p-2 text-center text-2xl transition-colors hover:bg-slate-600"
-            content_classes="animate-show-content-left top-1/4 -left-[110px] font-bold text-start"
+            content_classes="top-1/2 -translate-y-1/2 font-bold text-start w-fit -left-28"
           >
             {action.content}
           </Tooltip>

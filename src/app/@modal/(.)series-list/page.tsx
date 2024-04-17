@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { CloseModalIcon } from '@/components/CloseModalIcon';
 import Modal from '@/components/Modal';
+import { NavigateBack } from '@/components/NavigateBack';
 import { createSerieDatasource } from '@/data/serie';
 
 export default async function SeriesListModal() {
@@ -11,9 +12,9 @@ export default async function SeriesListModal() {
   return (
     <Modal>
       <div className="relative flex w-64 max-w-md flex-col space-y-3 rounded-md bg-slate-50 px-4 py-2 text-center">
-        <Link href="/" className="absolute right-4 text-slate-800">
+        <NavigateBack className="absolute right-4 text-slate-800">
           <CloseModalIcon />
-        </Link>
+        </NavigateBack>
 
         {series.map((serie) => (
           <Link

@@ -13,7 +13,7 @@ export function Card({ character }: CardProps) {
     <div
       tabIndex={0}
       aria-label={character.name}
-      className="group mx-auto max-w-sm cursor-pointer rounded-md bg-slate-500 px-6 py-4 shadow-md shadow-black/65 md:p-3"
+      className="mx-auto max-w-sm rounded-md bg-slate-500 px-6 py-4 shadow-md shadow-black/65 md:p-3"
     >
       <div className="flex h-full flex-col justify-between">
         <div className="text-center">
@@ -25,7 +25,7 @@ export function Card({ character }: CardProps) {
         <Link
           href={`/character/${character.id}`}
           className={cn(
-            'relative mx-auto mt-4 h-[270px] w-[200px] transition-transform duration-300 ease-in-out group-hover:scale-105',
+            'relative mx-auto mt-4 h-[270px] w-[200px] cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105',
             'md:h-[200px] md:w-[150px]',
           )}
         >

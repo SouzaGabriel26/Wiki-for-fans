@@ -17,7 +17,7 @@ export function Tooltip({
       {children}
       <p
         className={cn(
-          'absolute -top-6 left-0 right-0 hidden animate-show-content-up rounded-md p-2 text-center text-xs group-hover:block',
+          'absolute -top-6 left-0 right-0 hidden animate-show-content-up rounded-md p-2 text-center text-xs group-hover:flex',
           content_classes,
         )}
       >
