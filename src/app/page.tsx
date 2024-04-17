@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 
+import CallToActions from '@/components/CallToActions';
 import { CharactersList } from '@/components/CharactersList';
 import CharacterslistLoading from '@/components/CharacterslistLoading';
 import { Header } from '@/components/Header';
@@ -18,7 +19,7 @@ export default async function Home({ searchParams }: HomeProps) {
   return (
     <div className="flex h-full flex-col overflow-y-hidden bg-slate-200">
       <Header />
-      <Wrapper>
+      <Wrapper className="relative">
         <SeriesNavigation serieId={serieId ?? ''} />
         <main className="flex flex-1 flex-col items-center justify-center overflow-y-auto">
           {!serieId ? (
@@ -32,6 +33,8 @@ export default async function Home({ searchParams }: HomeProps) {
             </Suspense>
           )}
         </main>
+
+        <CallToActions />
       </Wrapper>
     </div>
   );
