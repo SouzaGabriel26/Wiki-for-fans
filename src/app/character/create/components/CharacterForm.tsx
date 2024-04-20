@@ -1,4 +1,4 @@
-import { InputMultiSelect } from '@/components/InputMultiSelect';
+import InputMultiSelect from '@/components/InputMultiSelect';
 
 export default async function CharacterForm() {
   return (
