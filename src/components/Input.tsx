@@ -23,7 +23,7 @@ export default function Input({
         placeholder=" "
       />
       <label
-        className="absolute left-2 top-1 text-xs text-slate-400 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base"
+        className="absolute left-2 top-1 cursor-text text-xs text-slate-400 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base peer-disabled:cursor-not-allowed"
         htmlFor={id}
       >
         {placeholder}

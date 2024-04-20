@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-import { CloseModalIcon } from './CloseModalIcon';
-import Input from './Input';
+import { Option } from './Option';
+import { SmallScreenAddBtn } from './SmallScreenBtn';
+import Input from '../Input';
 
 type InputMultiSelectProps = {
   id: string;
@@ -11,59 +12,80 @@ type InputMultiSelectProps = {
   placeholder: string;
 };
 
-export function InputMultiSelect({
+export default function InputMultiSelect({
   id,
   name,
   placeholder,
 }: InputMultiSelectProps) {
   const [inputValue, setInputValue] = useState('');
   const [options, setOptions] = useState<string[]>([]);
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  useEffect(() => {
+    options.length === 10 ? setIsDisabled(true) : setIsDisabled(false);
+  }, [options]);
+
+  const handleAddOption = useCallback(
+    (inputValue: string) => {
+      if (options.includes(inputValue.toLowerCase())) return;
+
+      setOptions((prevOptions) => [...prevOptions, inputValue.toLowerCase()]);
+    },
+    [options],
+  );
 
   function handleKeyDown(event: React.KeyboardEvent<Element>) {
-    if (!inputValue || options.length >= 10) return;
-    if (options.includes(inputValue)) return;
+    if (!inputValue) {
+      return;
+    }
 
     switch (event.key) {
       case 'Enter':
       case 'Tab':
-        setOptions([...options, inputValue]);
+        handleAddOption(inputValue);
         setInputValue('');
         event.preventDefault();
     }
   }
 
   function handleAddOptionFromButton() {
-    if (!inputValue || options.length >= 10) return;
-    if (options.includes(inputValue)) return;
+    if (!inputValue) return;
 
-    setOptions([...options, inputValue]);
+    handleAddOption(inputValue);
     setInputValue('');
   }
 
   function handleDeleteOption(option: string) {
-    setOptions(options.filter((currentOption) => currentOption !== option));
+    setOptions((prevOptions) =>
+      prevOptions.filter((prevOption) => prevOption !== option),
+    );
   }
 
   return (
     <div>
+      <label htmlFor={id} className="ml-1 text-xs text-slate-400">
+        press Enter or Tab to add a option
+      </label>
       <Input
         value={inputValue}
-        required
         id={id}
         name={name}
+        disabled={isDisabled}
         placeholder={placeholder}
         onKeyDown={handleKeyDown}
         onChange={(event) => setInputValue(event.target.value)}
+        className={isDisabled ? 'cursor-not-allowed' : ''}
+      />
+      <input
+        type="hidden"
+        name={`${name}Array`}
+        value={JSON.stringify(options)}
       />
 
-      <button
-        type="button"
-        disabled={inputValue === '' || options.length === 10}
+      <SmallScreenAddBtn
+        disabled={inputValue === '' || isDisabled}
         onClick={handleAddOptionFromButton}
-        className="mt-2 rounded-md bg-slate-400 p-2 text-slate-800 disabled:bg-slate-300 disabled:text-slate-500 md:hidden"
-      >
-        Add
-      </button>
+      />
 
       {options.length === 10 && (
         <p className="text-xs text-red-500">
@@ -73,19 +95,7 @@ export function InputMultiSelect({
 
       <div className="relative flex max-w-full flex-wrap gap-1 rounded-md p-2">
         {options.map((option) => (
-          <span
-            key={option}
-            className="relative mr-1 rounded-md border border-slate-500 bg-gray-200 p-1 pr-6"
-          >
-            {option}
-            <button
-              type="button"
-              className="absolute right-1"
-              onClick={() => handleDeleteOption(option)}
-            >
-              <CloseModalIcon className="w-4 rounded-full hover:scale-105" />
-            </button>
-          </span>
+          <Option option={option} key={option} onDelete={handleDeleteOption} />
         ))}
 
         {options.length > 1 && (
