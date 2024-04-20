@@ -9,7 +9,7 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <div className="flex h-full flex-col bg-slate-200">
       <Header title="Character form" />
-      <Wrapper className="relative">{children}</Wrapper>
+      <Wrapper className="relative overflow-hidden">{children}</Wrapper>
     </div>
   );
 }

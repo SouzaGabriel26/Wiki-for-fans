@@ -27,6 +27,7 @@ export default function TextArea({
           'peer w-full rounded-md border border-slate-500 bg-white px-2 pt-6 text-sm text-slate-700 outline-none placeholder-shown:pt-2 focus:border-slate-800',
           className,
         )}
+        {...props}
       />
       <label
         htmlFor={id}
