@@ -3,7 +3,6 @@ import React from 'react';
 
 import CharacterIcon from './CharacterIcon';
 import SerieIcon from './SerieIcon';
-import { Tooltip } from './Tooltip';
 
 export default function CallToActions() {
   return (
@@ -17,7 +16,7 @@ export default function CallToActions() {
           <p className="absolute -left-[130px] w-[120px] text-end text-sm font-bold opacity-0 transition-all ease-in-out group-hover:opacity-100">
             {action.name}
           </p>
-          <div className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-slate-500 p-2 text-center text-2xl transition-colors hover:bg-slate-600">
+          <div className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full border bg-slate-500 p-2 text-center text-2xl transition-colors hover:bg-slate-600">
             {action.content}
           </div>
         </Link>

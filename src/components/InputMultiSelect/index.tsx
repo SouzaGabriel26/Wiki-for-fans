@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useState } from 'react';
 
+import { cn } from '@/lib/cn';
+
 import { Option } from './Option';
 import { SmallScreenAddBtn } from './SmallScreenBtn';
 import Input from '../Input';
@@ -74,7 +76,7 @@ export default function InputMultiSelect({
         placeholder={placeholder}
         onKeyDown={handleKeyDown}
         onChange={(event) => setInputValue(event.target.value)}
-        className={isDisabled ? 'cursor-not-allowed' : ''}
+        className={cn('md:mb-2', isDisabled ? 'cursor-not-allowed' : '')}
       />
       <input
         type="hidden"
@@ -100,7 +102,7 @@ export default function InputMultiSelect({
 
         {options.length > 1 && (
           <button
-            className="absolute -right-8 top-0 text-xs hover:scale-105"
+            className="absolute -top-10 right-0 text-xs hover:scale-105 md:top-0"
             onClick={() => setOptions([])}
             type="button"
           >
