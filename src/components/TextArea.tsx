@@ -16,7 +16,7 @@ export default function TextArea({
   const rows = props.rows ?? 5;
 
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <textarea
         name={name}
         id={name}
@@ -24,7 +24,7 @@ export default function TextArea({
         rows={rows}
         placeholder=" "
         className={cn(
-          'peer rounded-md border border-slate-500 bg-white px-2 pt-6 text-sm text-slate-700 outline-none placeholder-shown:pt-2 focus:border-slate-800',
+          'peer w-full rounded-md border border-slate-500 bg-white px-2 pt-6 text-sm text-slate-700 outline-none placeholder-shown:pt-2 focus:border-slate-800',
           className,
         )}
       />
