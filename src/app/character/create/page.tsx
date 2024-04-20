@@ -5,7 +5,7 @@ import CharacterForm from './components/CharacterForm';
 export default function Page() {
   return (
     <div className="flex h-full flex-col p-4">
-      <NavigateBack className="absolute left-5 top-4 hover:underline" />
+      <NavigateBack className="absolute left-1 top-1 hover:underline md:left-5 md:top-4" />
       <h1 className="text-center text-2xl text-slate-800">
         Register a character
       </h1>
