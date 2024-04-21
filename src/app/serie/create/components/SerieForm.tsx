@@ -1,10 +1,69 @@
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
+import { z } from 'zod';
+
 import Input from '@/components/Input';
 import InputMultiSelect from '@/components/InputMultiSelect';
 import TextArea from '@/components/TextArea';
+import { createSerieDatasource } from '@/data/serie';
 
-export default function SerieForm() {
+const serieSchema = z.object({
+  name: z.string({
+    required_error: 'Name is required',
+  }),
+  description: z
+    .string({
+      required_error: 'Description is required',
+    })
+    .min(10, 'Description must have at least 10 characters'),
+  episodes: z.number({
+    required_error: 'Episodes is required',
+  }),
+  seasons: z.number({
+    required_error: 'Seasons is required',
+  }),
+  platforms: z.array(z.string()),
+  status: z.enum(['FINISHED', 'CANCELED', 'IN_PROGRESS'], {
+    required_error: 'Status is required',
+  }),
+});
+
+async function serverActionToCreateSerie(formData: FormData) {
+  'use server';
+
+  const entries = Object.fromEntries(formData.entries());
+
+  const treatedData = {
+    name: entries.name,
+    description: entries.description,
+    episodes: Number(entries.episodes),
+    seasons: Number(entries.seasons),
+    platforms: JSON.parse(entries.platformsArray as string),
+    status: entries.status,
+  };
+
+  const dataAfterValidation = serieSchema.safeParse(treatedData);
+
+  if (!dataAfterValidation.success) {
+    return redirect(
+      `/serie/create?error=${dataAfterValidation.error.errors[0].message}`,
+    );
+  }
+
+  const serieDataSource = createSerieDatasource();
+  const { createdSerie, errors } = await serieDataSource.create(
+    dataAfterValidation.data,
+  );
+
+  if (!errors) {
+    revalidatePath('/');
+    return redirect('/');
+  }
+}
+
+export default async function SerieForm() {
   return (
-    <form className="space-y-4">
+    <form className="space-y-4" action={serverActionToCreateSerie}>
       <Input id="name" name="name" placeholder="Name" required />
       <TextArea
         required
