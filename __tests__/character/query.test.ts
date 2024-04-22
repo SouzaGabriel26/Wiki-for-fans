@@ -126,4 +126,54 @@ describe('> Character schema (Query)', () => {
       },
     });
   });
+
+  test('Trying to get all characters by serie id', async () => {
+    await prisma.characters.create({
+      data: {
+        name: 'Arthur Shelby',
+        nickName: 'Arthur',
+        description:
+          'Arthur Shelby Jr. is the eldest Shelby sibling, tough, responsible, and a prominent member of the Peaky Blinders.',
+        age: 45,
+        isProtagonist: true,
+        serie: {
+          connect: {
+            id: serieId,
+          },
+        },
+      },
+    });
+
+    const { data } = await client.query({
+      query: gql`
+        query ($serieId: ID!) {
+          getCharactersBySerieId(serieId: $serieId) {
+            name
+            age
+            serie {
+              name
+            }
+          }
+        }
+      `,
+      variables: {
+        serieId,
+      },
+    });
+
+    expect(data.getCharactersBySerieId).toStrictEqual([
+      {
+        __typename: 'Character',
+        name: 'Tommy Shelby',
+        age: 32,
+        serie: { __typename: 'Serie', name: 'Peaky Blinders' },
+      },
+      {
+        __typename: 'Character',
+        name: 'Arthur Shelby',
+        age: 45,
+        serie: { __typename: 'Serie', name: 'Peaky Blinders' },
+      },
+    ]);
+  });
 });
