@@ -55,6 +55,10 @@ async function serverActionToCreateSerie(formData: FormData) {
     dataAfterValidation.data,
   );
 
+  if (!createdSerie) {
+    return redirect(`/serie/create?error=${errors.message}`);
+  }
+
   if (!errors) {
     revalidatePath('/');
     return redirect('/');
@@ -63,7 +67,11 @@ async function serverActionToCreateSerie(formData: FormData) {
 
 export default async function SerieForm() {
   return (
-    <form className="space-y-4" action={serverActionToCreateSerie}>
+    <form
+      key={new Date().toISOString()}
+      className="space-y-4"
+      action={serverActionToCreateSerie}
+    >
       <Input id="name" name="name" placeholder="Name" required />
       <TextArea
         required
