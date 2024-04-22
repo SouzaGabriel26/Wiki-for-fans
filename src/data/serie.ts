@@ -79,6 +79,17 @@ export function createSerieDatasource() {
       }
     `;
 
+    const { returnedSerie: serieAlreadyExists } = await getByName(serie.name);
+
+    if (serieAlreadyExists) {
+      return {
+        createdSerie: null,
+        errors: {
+          message: 'Serie already exists',
+        },
+      };
+    }
+
     const { data, errors } = await client.mutate({
       mutation: CREATE_SERIE_QUERY,
       variables: {

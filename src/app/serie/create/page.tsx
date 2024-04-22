@@ -22,16 +22,18 @@ export default function Page({ searchParams }: Props) {
 
       {error && (
         <div
-          className="relative rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
+          className="flex justify-between rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
           role="alert"
         >
-          <strong className="font-bold">Error: </strong>
-          <span className="block sm:inline">{error}</span>
+          <div>
+            <strong className="font-bold">Error: </strong>
+            <span className="block sm:inline">{error}</span>
+          </div>
 
           <Link
             href="/serie/create"
             replace
-            className="absolute bottom-0 right-1 text-end md:right-2"
+            className="text-end md:right-2"
             role="button"
           >
             Try again
