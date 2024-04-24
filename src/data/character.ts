@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 
+import { CreateCharacterArgs } from '@/app/api/configs/context/prismaMutations';
 import { client } from '@/lib/clientApi';
 
 export function createCharacterDatasource() {
@@ -90,7 +91,64 @@ export function createCharacterDatasource() {
     };
   }
 
+  async function create(character: CreateCharacterArgs) {
+    const CREATE_CHARACTER_QUERY = gql`
+      mutation (
+        $name: String!
+        $nickName: String
+        $description: String!
+        $age: Int!
+        $personalities: [String]!
+        $friends: [String]!
+        $enemies: [String]!
+        $image: String
+        $favoritePhrase: String
+        $isProtagonist: Boolean!
+        $serieId: ID!
+      ) {
+        createCharacter(
+          name: $name
+          nickName: $nickName
+          description: $description
+          age: $age
+          personalities: $personalities
+          friends: $friends
+          enemies: $enemies
+          image: $image
+          favoritePhrase: $favoritePhrase
+          isProtagonist: $isProtagonist
+          serieId: $serieId
+        ) {
+          name
+          serie {
+            id
+            name
+          }
+        }
+      }
+    `;
+
+    const { data, errors } = await client.mutate({
+      mutation: CREATE_CHARACTER_QUERY,
+      variables: character,
+    });
+
+    type CreatedCharacter = {
+      name: string;
+      serie: {
+        id: string;
+        name: string;
+      };
+    };
+
+    return {
+      createdCharacter: data.createCharacter as CreatedCharacter,
+      error: errors,
+    };
+  }
+
   return Object.freeze({
+    create,
     getAll,
     getById,
     getAllBySerieId,

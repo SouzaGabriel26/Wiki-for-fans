@@ -1,9 +1,63 @@
+import { revalidatePath } from 'next/cache';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
+import { CreateCharacterArgs } from '@/app/api/configs/context/prismaMutations';
 import Input from '@/components/Input';
 import InputMultiSelect from '@/components/InputMultiSelect';
 import TextArea from '@/components/TextArea';
+import { createCharacterDatasource } from '@/data/character';
 import { createSerieDatasource } from '@/data/serie';
+import { cloudinaryService } from '@/lib/cloudinary';
+
+async function serverActionToCreateCharacter(formData: FormData) {
+  'use server';
+
+  const entries = Object.fromEntries(formData.entries());
+
+  const createCharacterObject: CreateCharacterArgs = {
+    name: entries.name as string,
+    nickName: entries.nickname as string,
+    description: entries.description as string,
+    age: Number(entries.age),
+    serieId: entries.serieId as string,
+    isProtagonist: entries.isProtagonist === 'true',
+    personalities: JSON.parse(entries.personalitiesArray as string),
+    friends: JSON.parse(entries.friendsArray as string),
+    enemies: JSON.parse(entries.enemiesArray as string),
+    favoritePhrase: entries.favoritePhrase as string,
+    image: '',
+  };
+
+  const imageFile = entries.imageFile as File;
+  const arrayBuffer = await imageFile.arrayBuffer();
+  const buffer = new Uint8Array(arrayBuffer);
+
+  if (imageFile.size > 0) {
+    try {
+      const { secure_url } = await cloudinaryService.createAsset(buffer, {
+        folder: 'characters',
+        tags: ['characters'],
+        use_filename: true,
+      });
+
+      createCharacterObject.image = secure_url;
+    } catch (error) {
+      console.error(error);
+      return redirect('/character/create?error=imgUpload');
+    }
+  }
+
+  const chacacterDataSource = createCharacterDatasource();
+  const { createdCharacter } = await chacacterDataSource.create(
+    createCharacterObject,
+  );
+
+  if (createdCharacter) {
+    revalidatePath('/');
+    return redirect(`/?serieId=${createdCharacter.serie.id}`);
+  }
+}
 
 export default async function CharacterForm() {
   const serieDatasource = createSerieDatasource();
@@ -19,7 +73,11 @@ export default async function CharacterForm() {
   }
 
   return (
-    <form className="space-y-2 pb-2">
+    <form
+      key={new Date().toISOString()}
+      action={serverActionToCreateCharacter}
+      className="space-y-2 pb-2"
+    >
       <div className="mb-4 space-y-2 overflow-y-auto overflow-x-hidden">
         <div className="flex flex-col gap-2 md:flex-row">
           <Input required id="name" name="name" placeholder="Name*" />
@@ -42,8 +100,8 @@ export default async function CharacterForm() {
         />
 
         <fieldset className="flex gap-2">
-          <label htmlFor="serieId">Serie:</label>
-          <select name="serieId" id="serieId">
+          <label htmlFor="serieId">Serie* :</label>
+          <select required name="serieId" id="serieId">
             <option value=""></option>
             {series.map((serie) => (
               <option key={serie.id} value={serie.id}>
@@ -54,7 +112,7 @@ export default async function CharacterForm() {
         </fieldset>
 
         <fieldset className="flex gap-2">
-          <span>Is Protagonist?</span>
+          <span>Is Protagonist? *</span>
           <div className="flex items-center gap-2">
             <label htmlFor="yes">Yes</label>
             <Input
@@ -63,6 +121,7 @@ export default async function CharacterForm() {
               id="yes"
               name="isProtagonist"
               type="radio"
+              value="true"
             />
           </div>
 
@@ -74,11 +133,17 @@ export default async function CharacterForm() {
               id="no"
               name="isProtagonist"
               type="radio"
+              value="false"
             />
           </div>
         </fieldset>
 
-        <Input type="file" placeholder="File" className="mt-5" />
+        <Input
+          type="file"
+          placeholder="File"
+          name="imageFile"
+          className="mt-5"
+        />
 
         <InputMultiSelect
           id="personalities"
