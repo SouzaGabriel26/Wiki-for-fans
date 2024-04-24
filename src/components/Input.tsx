@@ -14,6 +14,7 @@ export default function Input({
   return (
     <div className="relative w-full">
       <input
+        autoComplete="off"
         id={id}
         {...props}
         className={cn(

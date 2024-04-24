@@ -22,10 +22,10 @@ export default function Page({ searchParams }: Props) {
 
       {error && (
         <div
-          className="flex justify-between rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
+          className="flex flex-col items-center justify-center gap-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700 md:flex-row md:justify-between"
           role="alert"
         >
-          <div>
+          <div className="flex gap-2">
             <strong className="font-bold">Error: </strong>
             <span className="block sm:inline">{error}</span>
           </div>

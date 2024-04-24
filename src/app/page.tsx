@@ -19,7 +19,7 @@ export default async function Home({ searchParams }: HomeProps) {
   return (
     <div className="flex h-full flex-col overflow-y-hidden bg-slate-200">
       <Header />
-      <Wrapper className="relative">
+      <Wrapper className="relative md:py-4">
         <SeriesNavigation serieId={serieId ?? ''} />
         <main className="flex flex-1 flex-col items-center justify-center overflow-y-auto">
           {!serieId ? (

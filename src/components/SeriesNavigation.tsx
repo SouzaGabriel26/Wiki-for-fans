@@ -25,12 +25,13 @@ export async function SeriesNavigation({ serieId }: SeriesNavigationProps) {
               pathname: '/',
               query: { serieId: serie.id },
             }}
-            className={cn(
-              'animate-show-content-up px-4 py-2 text-slate-600 transition-colors hover:text-slate-800',
-              serieId === serie.id ? 'text-slate-900 underline' : '',
-            )}
+            className="animate-show-content-up px-4 py-2 text-slate-600 transition-colors hover:text-slate-800"
           >
-            <button>{serie.name}</button>
+            <button
+              className={cn(serieId === serie.id && 'text-slate-900 underline')}
+            >
+              {serie.name}
+            </button>
           </Link>
         ))}
       </nav>
