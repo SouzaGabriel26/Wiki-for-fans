@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { constants } from '@/config/constants';
 import { Character } from '@/data/character';
 import { cn } from '@/lib/cn';
 
@@ -31,10 +32,7 @@ export function Card({ character }: CardProps) {
         >
           <Image
             className="rounded-md object-cover"
-            src={
-              character?.image ??
-              'https://via.placeholder.com/200x270.png?text=No+Image'
-            }
+            src={character?.image || constants.image_url_fallback}
             alt={character.name}
             priority
             fill

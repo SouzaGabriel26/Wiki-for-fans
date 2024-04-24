@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { NavigateBack } from '@/components/NavigateBack';
-import { Wrapper } from '@/components/Wrapper';
+import { constants } from '@/config/constants';
 import { createCharacterDatasource } from '@/data/character';
 
 type Params = {
@@ -31,7 +31,7 @@ export default async function Page({ params }: Params) {
         <div className="relative">
           <Image
             className="h-auto max-h-[350px] w-auto max-w-[400px] rounded-md object-cover shadow-md shadow-black"
-            src={returnedCharacter?.image ?? ''}
+            src={returnedCharacter?.image || constants.image_url_fallback}
             alt={`${returnedCharacter.nickName} image`}
             priority
             width={200}
