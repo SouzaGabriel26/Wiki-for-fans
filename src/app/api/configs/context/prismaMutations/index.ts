@@ -61,6 +61,9 @@ async function createCharacter(args: CreateCharacterArgs) {
     data: {
       ...args,
     },
+    include: {
+      serie: true,
+    },
   });
 }
 
