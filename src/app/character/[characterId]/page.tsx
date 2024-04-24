@@ -32,7 +32,7 @@ export default async function Page({ params }: Params) {
           <Image
             className="h-auto max-h-[350px] w-auto max-w-[400px] rounded-md object-cover shadow-md shadow-black"
             src={returnedCharacter?.image || constants.image_url_fallback}
-            alt={`${returnedCharacter.nickName} image`}
+            alt={`${returnedCharacter?.nickName || 'Character'} image`}
             priority
             width={200}
             height={200}

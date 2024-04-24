@@ -21,7 +21,7 @@ export function Card({ character }: CardProps) {
           <h2 className="mx-auto mb-2 max-w-[200px] overflow-hidden text-ellipsis whitespace-nowrap text-xl font-semibold text-white md:max-w-[150px]">
             {character.name}
           </h2>
-          <p className="text-gray-300">{character.nickName}</p>
+          <p className="text-gray-300">{character.nickName || '-'}</p>
         </div>
         <Link
           href={`/character/${character.id}`}
