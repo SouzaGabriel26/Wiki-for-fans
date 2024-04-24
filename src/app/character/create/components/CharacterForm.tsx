@@ -48,8 +48,8 @@ async function serverActionToCreateCharacter(formData: FormData) {
     }
   }
 
-  const chacacterDataSource = createCharacterDatasource();
-  const { createdCharacter } = await chacacterDataSource.create(
+  const characterDataSource = createCharacterDatasource();
+  const { createdCharacter } = await characterDataSource.create(
     createCharacterObject,
   );
 
@@ -143,6 +143,7 @@ export default async function CharacterForm() {
           placeholder="File"
           name="imageFile"
           className="mt-5"
+          accept="image/png, image/jpeg, image/jpg"
         />
 
         <InputMultiSelect
