@@ -31,11 +31,6 @@ async function createAsset(buffer: Uint8Array, options: UploadApiOptions) {
   return uploadResponse;
 }
 
-async function deleteAsset(publicId: string) {
-  await cloudinary.uploader.destroy(publicId);
-}
-
 export const cloudinaryService = Object.freeze({
   createAsset,
-  deleteAsset,
 });
