@@ -95,6 +95,9 @@ async function deleteCharacterById(id: string) {
       where: {
         id,
       },
+      include: {
+        serie: true,
+      },
     });
 
     return deletedCharacter;
