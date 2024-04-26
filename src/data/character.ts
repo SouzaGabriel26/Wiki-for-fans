@@ -83,6 +83,7 @@ export function createCharacterDatasource() {
     const { data, error } = await client.query({
       query: GET_CHARACTERS_BY_SERIE_ID,
       variables: { serieId },
+      fetchPolicy: 'no-cache',
     });
 
     return {
@@ -147,8 +148,41 @@ export function createCharacterDatasource() {
     };
   }
 
+  async function deleteById(id: string) {
+    const QUERY_TO_DELETE_CHARACTER = gql`
+      mutation ($id: ID!) {
+        deleteCharacterById(id: $id) {
+          name
+          image
+          serie {
+            id
+          }
+        }
+      }
+    `;
+
+    const { data, errors } = await client.mutate({
+      mutation: QUERY_TO_DELETE_CHARACTER,
+      variables: { id },
+    });
+
+    type DeletedCharacter = {
+      name: string;
+      image: string;
+      serie: {
+        id: string;
+      };
+    };
+
+    return {
+      deletedCharacter: data.deleteCharacterById as DeletedCharacter,
+      errors,
+    };
+  }
+
   return Object.freeze({
     create,
+    deleteById,
     getAll,
     getById,
     getAllBySerieId,

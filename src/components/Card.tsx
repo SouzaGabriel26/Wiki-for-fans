@@ -5,6 +5,8 @@ import { constants } from '@/config/constants';
 import { Character } from '@/data/character';
 import { cn } from '@/lib/cn';
 
+import { TrashIcon } from './icons/TrashIcon';
+
 type CardProps = {
   character: Character;
 };
@@ -21,7 +23,15 @@ export function Card({ character }: CardProps) {
           <h2 className="mx-auto mb-2 max-w-[200px] overflow-hidden text-ellipsis whitespace-nowrap text-xl font-semibold text-white md:max-w-[150px]">
             {character.name}
           </h2>
-          <p className="text-gray-300">{character.nickName || '-'}</p>
+          <div className="flex items-center justify-center gap-2">
+            <p className="text-gray-300">{character.nickName || '-'}</p>
+            <Link
+              href={`/character/delete/${character.id}`}
+              className="transition-all hover:scale-110"
+            >
+              <TrashIcon />
+            </Link>
+          </div>
         </div>
         <Link
           href={`/character/${character.id}`}
