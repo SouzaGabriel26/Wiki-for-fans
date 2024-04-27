@@ -4,6 +4,7 @@ import { z } from 'zod';
 
 import Input from '@/components/Input';
 import InputMultiSelect from '@/components/InputMultiSelect';
+import { SubmitButton } from '@/components/SubmitButton';
 import TextArea from '@/components/TextArea';
 import { createSerieDatasource } from '@/data/serie';
 
@@ -115,12 +116,9 @@ export default async function SerieForm() {
         </select>
       </fieldset>
 
-      <button
-        type="submit"
-        className="bottom-5 right-10 mt-10 w-full rounded-md bg-slate-600 p-2 text-white md:absolute md:w-fit"
-      >
+      <SubmitButton className="bottom-5 right-10 py-2 md:absolute">
         Register
-      </button>
+      </SubmitButton>
     </form>
   );
 }
