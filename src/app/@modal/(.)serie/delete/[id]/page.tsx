@@ -46,20 +46,18 @@ type Params = {
 export default function Page({ params }: Params) {
   return (
     <Modal>
-      <div className="relative flex w-64 max-w-md flex-col space-y-3 rounded-md bg-slate-50 px-4 py-2 text-center">
-        Are you sure you want to delete this serie?
-        <strong className="mt-2 text-xs">
-          This action will delete all characters related to this serie
-        </strong>
-        <form action={serverActionToDeleteSerie} className="space-x-2">
-          <NavigateBack className="rounded bg-red-400 px-2 text-white transition-colors hover:bg-red-500 disabled:cursor-not-allowed">
-            Cancel
-          </NavigateBack>
+      <p>Are you sure you want to delete this serie?</p>
+      <strong className="mt-2 text-xs">
+        This action will delete all characters related to this serie
+      </strong>
+      <form action={serverActionToDeleteSerie} className="space-x-2">
+        <NavigateBack className="rounded bg-red-400 px-2 text-white transition-colors hover:bg-red-500 disabled:cursor-not-allowed">
+          Cancel
+        </NavigateBack>
 
-          <input type="hidden" name="id" value={params.id} />
-          <SubmitButton>Confirm</SubmitButton>
-        </form>
-      </div>
+        <input type="hidden" name="id" value={params.id} />
+        <SubmitButton>Confirm</SubmitButton>
+      </form>
     </Modal>
   );
 }
