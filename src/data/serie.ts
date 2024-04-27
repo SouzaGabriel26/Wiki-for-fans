@@ -138,11 +138,41 @@ export function createSerieDatasource() {
     };
   }
 
+  async function deleteById(id: string) {
+    const DELETE_SERIE_QUERY = gql`
+      mutation ($deleteSerieById: ID!) {
+        deleteSerieById(id: $deleteSerieById) {
+          characters {
+            image
+            imagePublicId
+          }
+        }
+      }
+    `;
+
+    const { data, errors } = await client.mutate({
+      mutation: DELETE_SERIE_QUERY,
+      variables: { deleteSerieById: id },
+    });
+
+    type CharacterImageRefs = {
+      image: string;
+      imagePublicId: string;
+    };
+
+    return {
+      deletedSerie: data.deleteSerieById
+        .characters as Array<CharacterImageRefs>,
+      errors,
+    };
+  }
+
   return Object.freeze({
     getById,
     getAll,
     getByName,
     create,
+    deleteById,
   });
 }
 
