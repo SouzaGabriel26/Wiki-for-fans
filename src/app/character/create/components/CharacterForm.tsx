@@ -27,6 +27,7 @@ async function serverActionToCreateCharacter(formData: FormData) {
     enemies: JSON.parse(entries.enemiesArray as string),
     favoritePhrase: entries.favoritePhrase as string,
     image: '',
+    imagePublicId: '',
   };
 
   const imageFile = entries.imageFile as File;
@@ -35,13 +36,17 @@ async function serverActionToCreateCharacter(formData: FormData) {
 
   if (imageFile.size > 0) {
     try {
-      const { secure_url } = await cloudinaryService.createAsset(buffer, {
-        folder: 'characters',
-        tags: ['characters'],
-        use_filename: true,
-      });
+      const { secure_url, public_id } = await cloudinaryService.createAsset(
+        buffer,
+        {
+          folder: 'characters',
+          tags: ['characters'],
+          use_filename: true,
+        },
+      );
 
       createCharacterObject.image = secure_url;
+      createCharacterObject.imagePublicId = public_id;
     } catch (error) {
       console.error(error);
       return redirect('/character/create?error=imgUpload');

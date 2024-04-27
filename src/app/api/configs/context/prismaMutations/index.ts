@@ -18,6 +18,7 @@ export type CreateCharacterArgs = {
   friends: string[];
   enemies: string[];
   image?: string;
+  imagePublicId?: string;
   favoritePhrase?: string;
   isProtagonist: boolean;
   serieId: string;

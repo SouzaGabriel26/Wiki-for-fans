@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import Modal from '@/components/Modal';
 import { NavigateBack } from '@/components/NavigateBack';
 import { createCharacterDatasource } from '@/data/character';
+import { cloudinaryService } from '@/lib/cloudinary';
 
 async function serverActionToDeleteCharacter(formData: FormData) {
   'use server';
@@ -12,6 +13,10 @@ async function serverActionToDeleteCharacter(formData: FormData) {
 
   const characterDataSource = createCharacterDatasource();
   const { deletedCharacter } = await characterDataSource.deleteById(id);
+
+  if (deletedCharacter.imagePublicId && deletedCharacter.image) {
+    await cloudinaryService.deleteAsset(deletedCharacter.imagePublicId);
+  }
 
   revalidatePath('/');
   return redirect(`/?serieId=${deletedCharacter.serie.id}`);
@@ -38,7 +43,7 @@ export default async function Page({ params }: Props) {
 
           <form action={serverActionToDeleteCharacter}>
             <input type="hidden" name="id" value={id} />
-            <button className="rounded bg-blue-400 px-2 text-white transition-colors hover:bg-blue-500">
+            <button className="cursor-pointer rounded bg-blue-400 px-2 text-white transition-colors hover:bg-blue-500">
               Confirm
             </button>
           </form>
