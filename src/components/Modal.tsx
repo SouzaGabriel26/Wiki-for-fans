@@ -12,7 +12,9 @@ export default function Modal({ children, className, ...props }: ModalProps) {
       )}
       {...props}
     >
-      {children}
+      <div className="relative flex w-64 max-w-md flex-col space-y-3 rounded-md bg-slate-50 px-4 py-2 text-center">
+        {children}
+      </div>
     </dialog>
   );
 }

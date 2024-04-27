@@ -11,24 +11,22 @@ export default async function SeriesListModal() {
 
   return (
     <Modal>
-      <div className="relative flex w-64 max-w-md flex-col space-y-3 rounded-md bg-slate-50 px-4 py-2 text-center">
-        <NavigateBack className="absolute right-4 text-slate-800">
-          <CloseModalIcon />
-        </NavigateBack>
+      <NavigateBack className="absolute right-4 text-slate-800">
+        <CloseModalIcon />
+      </NavigateBack>
 
-        {series.map((serie) => (
-          <Link
-            key={serie.id}
-            href={{
-              pathname: '/',
-              query: { serieId: serie.id },
-            }}
-            className="text-slate-800 transition-colors hover:text-slate-900"
-          >
-            {serie.name}
-          </Link>
-        ))}
-      </div>
+      {series.map((serie) => (
+        <Link
+          key={serie.id}
+          href={{
+            pathname: '/',
+            query: { serieId: serie.id },
+          }}
+          className="text-slate-800 transition-colors hover:text-slate-900"
+        >
+          {serie.name}
+        </Link>
+      ))}
     </Modal>
   );
 }
