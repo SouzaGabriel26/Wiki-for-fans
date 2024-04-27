@@ -15,32 +15,57 @@ export async function SeriesNavigation({ serieId }: SeriesNavigationProps) {
     return;
   }
 
+  const choosedSerie = series.find((serie) => serie.id == serieId);
+
   return (
     <>
-      <nav className="hidden items-center justify-center pt-6 md:flex">
-        {series.map((serie) => (
-          <Link
-            key={serie.id}
-            href={{
-              pathname: '/',
-              query: { serieId: serie.id },
-            }}
-            className="animate-show-content-up px-4 py-2 text-slate-600 transition-colors hover:text-slate-800"
-          >
-            <button
-              className={cn(serieId === serie.id && 'text-slate-900 underline')}
+      <nav className="mb-4 hidden flex-col items-center justify-center gap-4 md:flex">
+        <div>
+          {series.map((serie) => (
+            <Link
+              key={serie.id}
+              href={{
+                pathname: '/',
+                query: { serieId: serie.id },
+              }}
+              className="animate-show-content-up px-4 py-2 text-slate-600 transition-colors hover:text-slate-800"
             >
-              {serie.name}
-            </button>
-          </Link>
-        ))}
+              <button
+                className={cn(
+                  serieId === serie.id && 'text-slate-900 underline',
+                )}
+              >
+                {serie.name}
+              </button>
+            </Link>
+          ))}
+        </div>
+
+        <SeeMoreAboutSerie />
       </nav>
 
-      <div className="mt-2 flex w-full items-center justify-center md:hidden">
+      <div className="mb-8 mt-2 flex w-full flex-col items-center justify-center gap-2 md:hidden">
         <Link href="/series-list" className="text-slate-800">
           Show series
         </Link>
+
+        <SeeMoreAboutSerie />
       </div>
     </>
   );
+
+  function SeeMoreAboutSerie() {
+    if (!choosedSerie) {
+      return null;
+    }
+
+    return (
+      <Link
+        className="text-xs text-slate-600 transition-colors hover:text-slate-800"
+        href={`/serie/${choosedSerie.id}`}
+      >
+        see more about <strong>{choosedSerie.name}</strong>
+      </Link>
+    );
+  }
 }
