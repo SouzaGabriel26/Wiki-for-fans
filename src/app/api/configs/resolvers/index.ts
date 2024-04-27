@@ -20,6 +20,12 @@ export const resolvers = {
       context: Context,
     ) => await context.queries.getSerieByName(args.name),
 
+    getSerieById: async (
+      _parent: any,
+      args: { id: string },
+      context: Context,
+    ) => await context.queries.getSerieById(args.id),
+
     getCharacterById: async (
       _parent: any,
       args: { id: string },

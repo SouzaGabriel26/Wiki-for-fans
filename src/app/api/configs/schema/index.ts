@@ -33,6 +33,7 @@ export const typeDefs = gql`
     series: [Serie]!
     characters: [Character]!
     getSerieByName(name: String!): Serie
+    getSerieById(id: ID!): Serie
     getCharacterById(id: ID!): Character
     getCharactersBySerieId(serieId: ID!): [Character]
   }

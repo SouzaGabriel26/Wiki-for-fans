@@ -50,8 +50,38 @@ export function createSerieDatasource() {
     });
 
     return {
-      returnedSerie: data.getSerieByName as SerieById,
+      returnedSerie: data.getSerieByName as SerieByName,
       error,
+    };
+  }
+
+  async function getById(id: string) {
+    const QUERY_TO_GET_BY_ID = gql`
+      query ($getSerieByIdId: ID!) {
+        getSerieById(id: $getSerieByIdId) {
+          id
+          name
+          description
+          episodes
+          platforms
+          seasons
+          status
+          characters {
+            id
+            name
+          }
+        }
+      }
+    `;
+
+    const { data, errors } = await client.query({
+      query: QUERY_TO_GET_BY_ID,
+      variables: { getSerieByIdId: id },
+    });
+
+    return {
+      returnedSerie: data.getSerieById as SerieByName,
+      errors,
     };
   }
 
@@ -109,13 +139,14 @@ export function createSerieDatasource() {
   }
 
   return Object.freeze({
+    getById,
     getAll,
     getByName,
     create,
   });
 }
 
-type SerieById = CreateSerieArgs & {
+type SerieByName = CreateSerieArgs & {
   characters: {
     id: string;
     name: string;

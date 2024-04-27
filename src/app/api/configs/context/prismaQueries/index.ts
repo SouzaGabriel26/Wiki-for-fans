@@ -27,6 +27,17 @@ async function getSerieByName(name: string) {
   });
 }
 
+async function getSerieById(id: string) {
+  return await prisma.serie.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      characters: true,
+    },
+  });
+}
+
 async function getCharacterById(id: string) {
   return await prisma.characters.findUnique({
     where: {
@@ -53,6 +64,7 @@ export const queries = Object.freeze({
   getAllSeries,
   getAllCharacters,
   getSerieByName,
+  getSerieById,
   getCharacterById,
   getCharactersBySerieId,
 });
