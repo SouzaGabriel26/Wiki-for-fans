@@ -103,6 +103,7 @@ export function createCharacterDatasource() {
         $friends: [String]!
         $enemies: [String]!
         $image: String
+        $imagePublicId: String
         $favoritePhrase: String
         $isProtagonist: Boolean!
         $serieId: ID!
@@ -116,11 +117,13 @@ export function createCharacterDatasource() {
           friends: $friends
           enemies: $enemies
           image: $image
+          imagePublicId: $imagePublicId
           favoritePhrase: $favoritePhrase
           isProtagonist: $isProtagonist
           serieId: $serieId
         ) {
           name
+          imagePublicId
           serie {
             id
             name
@@ -136,6 +139,7 @@ export function createCharacterDatasource() {
 
     type CreatedCharacter = {
       name: string;
+      imagePublicId: string;
       serie: {
         id: string;
         name: string;
@@ -154,6 +158,7 @@ export function createCharacterDatasource() {
         deleteCharacterById(id: $id) {
           name
           image
+          imagePublicId
           serie {
             id
           }
@@ -169,6 +174,7 @@ export function createCharacterDatasource() {
     type DeletedCharacter = {
       name: string;
       image: string;
+      imagePublicId: string;
       serie: {
         id: string;
       };

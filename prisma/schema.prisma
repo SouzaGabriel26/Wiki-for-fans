@@ -18,6 +18,7 @@ model Characters {
   friends        String[]
   serieId        String    @map("serie_id") @db.Uuid
   image          String?
+  imagePublicId  String?   @map("image_public_id")
   createdAt      DateTime? @default(now()) @map("created_at")
   favoritePhrase String?   @map("favorite_phrase")
   isProtagonist  Boolean   @map("is_protagonist")
