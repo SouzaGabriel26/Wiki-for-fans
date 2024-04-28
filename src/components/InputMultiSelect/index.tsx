@@ -12,15 +12,17 @@ type InputMultiSelectProps = {
   id: string;
   name: string;
   placeholder: string;
+  defaultOptions?: string[];
 };
 
 export default function InputMultiSelect({
   id,
   name,
   placeholder,
+  defaultOptions = [],
 }: InputMultiSelectProps) {
   const [inputValue, setInputValue] = useState('');
-  const [options, setOptions] = useState<string[]>([]);
+  const [options, setOptions] = useState<string[]>(defaultOptions);
   const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
