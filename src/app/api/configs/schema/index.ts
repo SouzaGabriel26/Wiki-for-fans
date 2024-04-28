@@ -89,6 +89,7 @@ export const typeDefs = gql`
       friends: [String]
       enemies: [String]
       image: String
+      imagePublicId: String
       favoritePhrase: String
       isProtagonist: Boolean
       serieId: ID

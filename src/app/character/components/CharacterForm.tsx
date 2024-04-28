@@ -1,71 +1,29 @@
-import { revalidatePath } from 'next/cache';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 
-import { CreateCharacterArgs } from '@/app/api/configs/context/prismaMutations';
 import Input from '@/components/Input';
 import InputMultiSelect from '@/components/InputMultiSelect';
 import { SubmitButton } from '@/components/SubmitButton';
 import TextArea from '@/components/TextArea';
-import { createCharacterDatasource } from '@/data/character';
+import { CharacterById } from '@/data/character';
 import { createSerieDatasource } from '@/data/serie';
-import { cloudinaryService } from '@/lib/cloudinary';
 
-async function serverActionToCreateCharacter(formData: FormData) {
-  'use server';
+type CharacterFormProps = {
+  isEdit?: boolean;
+  character?: CharacterById;
+  action: (formData: FormData) => Promise<undefined>;
+};
 
-  const entries = Object.fromEntries(formData.entries());
-
-  const createCharacterObject: CreateCharacterArgs = {
-    name: entries.name as string,
-    nickName: entries.nickname as string,
-    description: entries.description as string,
-    age: Number(entries.age),
-    serieId: entries.serieId as string,
-    isProtagonist: entries.isProtagonist === 'true',
-    personalities: JSON.parse(entries.personalitiesArray as string),
-    friends: JSON.parse(entries.friendsArray as string),
-    enemies: JSON.parse(entries.enemiesArray as string),
-    favoritePhrase: entries.favoritePhrase as string,
-    image: '',
-    imagePublicId: '',
-  };
-
-  const imageFile = entries.imageFile as File;
-  const arrayBuffer = await imageFile.arrayBuffer();
-  const buffer = new Uint8Array(arrayBuffer);
-
-  if (imageFile.size > 0) {
-    try {
-      const { secure_url, public_id } = await cloudinaryService.createAsset(
-        buffer,
-        {
-          folder: 'characters',
-          tags: ['characters'],
-          use_filename: true,
-        },
-      );
-
-      createCharacterObject.image = secure_url;
-      createCharacterObject.imagePublicId = public_id;
-    } catch (error) {
-      console.error(error);
-      return redirect('/character/create?error=imgUpload');
-    }
+export default async function CharacterForm({
+  isEdit = false,
+  character,
+  action,
+}: CharacterFormProps) {
+  if (isEdit && !character) {
+    throw new Error(
+      '> CharacterForm: To use this component in edit mdoe, you must provide a character.',
+    );
   }
 
-  const characterDataSource = createCharacterDatasource();
-  const { createdCharacter } = await characterDataSource.create(
-    createCharacterObject,
-  );
-
-  if (createdCharacter) {
-    revalidatePath('/');
-    return redirect(`/?serieId=${createdCharacter.serie.id}`);
-  }
-}
-
-export default async function CharacterForm() {
   const serieDatasource = createSerieDatasource();
   const { returnedSeries: series } = await serieDatasource.getAll();
 
@@ -81,13 +39,25 @@ export default async function CharacterForm() {
   return (
     <form
       key={new Date().toISOString()}
-      action={serverActionToCreateCharacter}
+      action={action}
       className="space-y-2 pb-2"
     >
       <div className="mb-4 space-y-2 overflow-y-auto overflow-x-hidden">
         <div className="flex flex-col gap-2 md:flex-row">
-          <Input required id="name" name="name" placeholder="Name*" />
-          <Input id="nickname" name="nickname" placeholder="Nickame" />
+          <Input
+            required
+            id="name"
+            name="name"
+            placeholder="Name*"
+            defaultValue={character?.name}
+          />
+          <Input
+            id="nickname"
+            name="nickname"
+            placeholder="Nickame"
+            maxLength={10}
+            defaultValue={character?.nickName}
+          />
         </div>
 
         <TextArea
@@ -95,6 +65,7 @@ export default async function CharacterForm() {
           id="description"
           name="description"
           placeholder="Description*"
+          defaultValue={character?.description}
         />
         <Input
           id="age"
@@ -103,11 +74,17 @@ export default async function CharacterForm() {
           name="age"
           placeholder="Age*"
           required
+          defaultValue={character?.age}
         />
 
         <fieldset className="flex gap-2">
           <label htmlFor="serieId">Serie* :</label>
-          <select required name="serieId" id="serieId">
+          <select
+            required
+            name="serieId"
+            id="serieId"
+            defaultValue={character?.serie?.id}
+          >
             <option value=""></option>
             {series.map((serie) => (
               <option key={serie.id} value={serie.id}>
@@ -128,6 +105,7 @@ export default async function CharacterForm() {
               name="isProtagonist"
               type="radio"
               value="true"
+              defaultChecked={character?.isProtagonist}
             />
           </div>
 
@@ -140,6 +118,7 @@ export default async function CharacterForm() {
               name="isProtagonist"
               type="radio"
               value="false"
+              defaultChecked={character?.isProtagonist === false}
             />
           </div>
         </fieldset>
@@ -156,21 +135,33 @@ export default async function CharacterForm() {
           id="personalities"
           name="personalities"
           placeholder="Personalities"
+          defaultOptions={character?.personalities}
         />
 
-        <InputMultiSelect id="friends" name="friends" placeholder="Friends" />
+        <InputMultiSelect
+          id="friends"
+          name="friends"
+          placeholder="Friends"
+          defaultOptions={character?.friends}
+        />
 
-        <InputMultiSelect id="enemies" name="enemies" placeholder="Enemies" />
+        <InputMultiSelect
+          id="enemies"
+          name="enemies"
+          placeholder="Enemies"
+          defaultOptions={character?.enemies}
+        />
 
         <Input
           id="favoritePhrase"
           name="favoritePhrase"
           placeholder="Favorite Phrase"
+          defaultValue={character?.favoritePhrase}
         />
       </div>
 
       <SubmitButton className="bottom-5 right-10 py-2 md:absolute">
-        Register
+        {isEdit ? 'Save' : 'Register'}
       </SubmitButton>
     </form>
   );

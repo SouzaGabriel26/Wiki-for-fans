@@ -5,6 +5,7 @@ import { constants } from '@/config/constants';
 import { Character } from '@/data/character';
 import { cn } from '@/lib/cn';
 
+import { EditIcon } from './icons/EditIcon';
 import { TrashIcon } from './icons/TrashIcon';
 
 type CardProps = {
@@ -24,6 +25,12 @@ export function Card({ character }: CardProps) {
             {character.name}
           </h2>
           <div className="flex items-center justify-center gap-2">
+            <Link
+              href={`/character/edit/${character.id}`}
+              className="transition-all hover:scale-110"
+            >
+              <EditIcon />
+            </Link>
             <p className="text-gray-300">{character.nickName || '-'}</p>
             <Link
               href={`/character/delete/${character.id}`}

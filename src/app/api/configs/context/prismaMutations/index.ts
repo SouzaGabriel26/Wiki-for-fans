@@ -87,6 +87,9 @@ async function updateCharacterById({ id, ...args }: UpdateCharacterArgs) {
     where: {
       id,
     },
+    include: {
+      serie: true,
+    },
   });
 }
 

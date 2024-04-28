@@ -42,6 +42,7 @@ export function createCharacterDatasource() {
           friends
           enemies
           image
+          imagePublicId
           createdAt
           favoritePhrase
           isProtagonist
@@ -57,6 +58,8 @@ export function createCharacterDatasource() {
     const { data, error } = await client.query({
       query: GET_CHARACTER_BY_ID,
       variables: { id },
+      fetchPolicy: 'no-cache',
+      notifyOnNetworkStatusChange: true,
     });
 
     return {
@@ -186,12 +189,78 @@ export function createCharacterDatasource() {
     };
   }
 
+  async function updateById(id: string, character: CreateCharacterArgs) {
+    const UPDATE_CHARACTER_QUERY = gql`
+      mutation (
+        $id: ID!
+        $name: String!
+        $nickName: String
+        $description: String!
+        $age: Int!
+        $personalities: [String]!
+        $friends: [String]!
+        $enemies: [String]!
+        $image: String
+        $imagePublicId: String
+        $favoritePhrase: String
+        $isProtagonist: Boolean!
+        $serieId: ID!
+      ) {
+        updateCharacterById(
+          id: $id
+          name: $name
+          nickName: $nickName
+          description: $description
+          age: $age
+          personalities: $personalities
+          friends: $friends
+          enemies: $enemies
+          image: $image
+          imagePublicId: $imagePublicId
+          favoritePhrase: $favoritePhrase
+          isProtagonist: $isProtagonist
+          serieId: $serieId
+        ) {
+          id
+          name
+          serie {
+            id
+            name
+          }
+        }
+      }
+    `;
+
+    type UpdatedCharacter = {
+      id: string;
+      name: string;
+      serie: {
+        id: string;
+        name: string;
+      };
+    };
+
+    const { data, errors } = await client.mutate({
+      mutation: UPDATE_CHARACTER_QUERY,
+      variables: {
+        id,
+        ...character,
+      },
+    });
+
+    return {
+      updatedCharacter: data.updateCharacterById as UpdatedCharacter,
+      errors,
+    };
+  }
+
   return Object.freeze({
     create,
     deleteById,
     getAll,
     getById,
     getAllBySerieId,
+    updateById,
   });
 }
 
@@ -205,7 +274,7 @@ export type Character = {
   };
 };
 
-type CharacterById = {
+export type CharacterById = {
   id: string;
   name: string;
   nickName: string;
@@ -215,6 +284,7 @@ type CharacterById = {
   friends: string[];
   enemies: string[];
   image?: string;
+  imagePublicId?: string;
   createdAt: string;
   favoritePhrase: string;
   isProtagonist: boolean;
