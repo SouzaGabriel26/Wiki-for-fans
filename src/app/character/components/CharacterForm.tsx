@@ -20,7 +20,7 @@ export default async function CharacterForm({
 }: CharacterFormProps) {
   if (isEdit && !character) {
     throw new Error(
-      '> CharacterForm: To use this component in edit mdoe, you must provide a character.',
+      '> CharacterForm: To use this component in edit mode, you must provide a character.',
     );
   }
 

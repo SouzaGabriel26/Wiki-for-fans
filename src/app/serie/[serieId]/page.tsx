@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import { EditIcon } from '@/components/icons/EditIcon';
 import { TrashIcon } from '@/components/icons/TrashIcon';
 import { NavigateBack } from '@/components/NavigateBack';
 import { createSerieDatasource } from '@/data/serie';
@@ -26,12 +27,14 @@ export default async function Page({ params }: Params) {
     <div className="relative space-y-2 p-4 text-center">
       <NavigateBack className="absolute left-1 top-1 hover:underline md:left-5 md:top-4" />
 
-      <Link
-        href={`/serie/delete/${params.serieId}`}
-        className="absolute right-1 top-0 mt-0"
-      >
-        <TrashIcon className="transition-transform hover:scale-105" />
-      </Link>
+      <div className="absolute right-1 top-0 mt-0 flex items-center gap-2">
+        <Link href={`/serie/edit/${params.serieId}`}>
+          <EditIcon className="transition-transform hover:scale-105" />
+        </Link>
+        <Link href={`/serie/delete/${params.serieId}`}>
+          <TrashIcon className="transition-transform hover:scale-105" />
+        </Link>
+      </div>
 
       <h1 className="mb-4 text-2xl">{returnedSerie.name}</h1>
 

@@ -167,12 +167,63 @@ export function createSerieDatasource() {
     };
   }
 
+  async function updateById(id: string, serie: CreateSerieArgs) {
+    const QUERY_TO_UPDATE_SERIE = gql`
+      mutation (
+        $id: ID!
+        $name: String
+        $description: String
+        $episodes: Int
+        $platforms: [String]
+        $seasons: Int
+        $status: Status
+      ) {
+        updateSerieById(
+          id: $id
+          name: $name
+          description: $description
+          episodes: $episodes
+          platforms: $platforms
+          seasons: $seasons
+          status: $status
+        ) {
+          id
+          name
+          description
+          episodes
+          platforms
+          seasons
+          status
+        }
+      }
+    `;
+
+    const { data, errors } = await client.mutate({
+      mutation: QUERY_TO_UPDATE_SERIE,
+      variables: {
+        id,
+        name: serie.name,
+        description: serie.description,
+        episodes: serie.episodes,
+        platforms: serie.platforms,
+        seasons: serie.seasons,
+        status: serie.status,
+      },
+    });
+
+    return {
+      updatedSerie: data.updateSerieById as Serie,
+      errors,
+    };
+  }
+
   return Object.freeze({
     getById,
     getAll,
     getByName,
     create,
     deleteById,
+    updateById,
   });
 }
 
