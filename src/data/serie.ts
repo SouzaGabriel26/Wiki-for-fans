@@ -1,7 +1,8 @@
 import { gql } from '@apollo/client';
 
 import { CreateSerieArgs } from '@/app/api/configs/context/prismaMutations';
-import { client } from '@/lib/clientApi';
+
+import { client } from '../lib/clientApi';
 
 export function createSerieDatasource() {
   async function getAll() {
