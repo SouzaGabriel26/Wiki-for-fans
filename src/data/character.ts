@@ -1,7 +1,8 @@
 import { gql } from '@apollo/client';
 
 import { CreateCharacterArgs } from '@/app/api/configs/context/prismaMutations';
-import { client } from '@/lib/clientApi';
+
+import { client } from '../lib/clientApi';
 
 export function createCharacterDatasource() {
   async function getAll() {
