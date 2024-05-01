@@ -1,13 +1,22 @@
+import Link from 'next/link';
+
 import { Card } from '@/components/Card';
 import { Tooltip } from '@/components/Tooltip';
 import { createCharacterDatasource } from '@/data/character';
 import { cn } from '@/lib/cn';
 
+import { EditIcon } from './icons/EditIcon';
+import { TrashIcon } from './icons/TrashIcon';
+
 type CharactersListProps = {
   serieId: string;
+  visibility?: 'card' | 'list';
 };
 
-export async function CharactersList({ serieId }: CharactersListProps) {
+export async function CharactersList({
+  serieId,
+  visibility = 'card',
+}: CharactersListProps) {
   const characterDatasource = createCharacterDatasource();
   const { returnedCharacters: characters } =
     await characterDatasource.getAllBySerieId(serieId);
@@ -24,6 +33,45 @@ export async function CharactersList({ serieId }: CharactersListProps) {
         </p>
       </div>
     );
+
+  if (visibility === 'list') {
+    return (
+      <div className="flex h-full w-full flex-col gap-1 px-16 py-2">
+        {characters.map((character) => (
+          <div
+            key={character.id}
+            className="relative flex w-full gap-4 rounded-md bg-slate-100 p-4"
+          >
+            <div className="flex flex-col">
+              <Tooltip
+                tip="see more"
+                aria-label={`see more about ${character.name}`}
+              >
+                <strong>
+                  <Link href={`/character/${character.id}`}>
+                    {character.name}
+                  </Link>
+                </strong>
+              </Tooltip>
+
+              <span>{character.nickName}</span>
+            </div>
+
+            <p>{character.serie.name}</p>
+
+            <div className="absolute right-2 flex gap-2">
+              <Link href={`/character/edit/${character.id}`}>
+                <EditIcon className="transition-transform hover:scale-105" />
+              </Link>
+              <Link href={`/character/delete/${character.id}`}>
+                <TrashIcon className="transition-transform hover:scale-105" />
+              </Link>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div
