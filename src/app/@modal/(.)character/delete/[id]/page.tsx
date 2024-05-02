@@ -27,14 +27,17 @@ type Props = {
   params: {
     id: string;
   };
+  searchParams: {
+    name: string;
+  };
 };
 
-export default async function Page({ params }: Props) {
+export default async function Page({ params, searchParams: { name } }: Props) {
   const { id } = params;
 
   return (
     <Modal>
-      <p>Are you sure you want to delete this character?</p>
+      <p>Are you sure you want to delete {name}?</p>
 
       <div>
         <form action={serverActionToDeleteCharacter} className="space-x-2">

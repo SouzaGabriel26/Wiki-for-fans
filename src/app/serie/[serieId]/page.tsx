@@ -31,7 +31,14 @@ export default async function Page({ params }: Params) {
         <Link href={`/serie/edit/${params.serieId}`}>
           <EditIcon className="transition-transform hover:scale-105" />
         </Link>
-        <Link href={`/serie/delete/${params.serieId}`}>
+        <Link
+          href={{
+            pathname: `/serie/delete/${params.serieId}`,
+            query: {
+              name: returnedSerie.name,
+            },
+          }}
+        >
           <TrashIcon className="transition-transform hover:scale-105" />
         </Link>
       </div>
