@@ -33,7 +33,10 @@ export function Card({ character }: CardProps) {
             </Link>
             <p className="text-gray-300">{character.nickName || '-'}</p>
             <Link
-              href={`/character/delete/${character.id}`}
+              href={{
+                pathname: `/character/delete/${character.id}`,
+                query: { name: character.name },
+              }}
               className="transition-all hover:scale-110"
             >
               <TrashIcon />

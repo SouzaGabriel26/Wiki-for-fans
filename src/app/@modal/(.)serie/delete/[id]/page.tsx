@@ -41,14 +41,17 @@ type Params = {
   params: {
     id: string;
   };
+  searchParams: {
+    name: string;
+  };
 };
 
-export default function Page({ params }: Params) {
+export default function Page({ params, searchParams: { name } }: Params) {
   return (
     <Modal>
-      <p>Are you sure you want to delete this serie?</p>
+      <p>Are you sure you want to delete this serie: {name}?</p>
       <strong className="mt-2 text-xs">
-        This action will delete all characters related to this serie
+        This action will delete all characters related to {name}
       </strong>
       <form action={serverActionToDeleteSerie} className="space-x-2">
         <NavigateBack className="rounded bg-red-400 px-2 text-white transition-colors hover:bg-red-500 disabled:cursor-not-allowed">
