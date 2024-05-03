@@ -5,15 +5,9 @@ import Modal from '@/components/Modal';
 import { NavigateBack } from '@/components/NavigateBack';
 import { createSerieDatasource } from '@/data/serie';
 
-async function getSeries() {
+export default async function Page() {
   const seriesDatasource = createSerieDatasource();
   const { returnedSeries: series } = await seriesDatasource.getAll();
-
-  return series;
-}
-
-export default async function SeriesListModal() {
-  const series = await getSeries();
 
   return (
     <Modal>
@@ -36,3 +30,5 @@ export default async function SeriesListModal() {
     </Modal>
   );
 }
+
+export const dynamic = 'force-dynamic';
