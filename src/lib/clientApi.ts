@@ -2,7 +2,7 @@ import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 
 const API_URL =
   process.env.NODE_ENV === 'production'
-    ? 'wiki-for-fans.vercel.app/api/graphql'
+    ? 'https://wiki-for-fans.vercel.app/api/graphql'
     : 'http://localhost:3000/api/graphql';
 
 const httpLink = createHttpLink({
