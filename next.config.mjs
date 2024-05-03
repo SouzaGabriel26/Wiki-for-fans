@@ -10,6 +10,19 @@ const nextConfig = {
       },
     ],
   },
+  async headers() {
+    return [
+      {
+        source: '/api/(.*)',
+        headers: [
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: 'https://wiki-for-fans.vercel.app/',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
