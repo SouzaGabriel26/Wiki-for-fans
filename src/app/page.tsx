@@ -27,7 +27,7 @@ export default async function Home({ searchParams }: HomeProps) {
         <SeriesNavigation serieId={serieId ?? ''} />
 
         {serieId && (
-          <div className="mx-auto mb-2 w-fit space-x-2 rounded bg-slate-300 px-2">
+          <div className="mx-auto mb-2 w-fit space-x-2 rounded bg-slate-300 px-2 py-1">
             <Link
               href={`/?serieId=${serieId}&visibility=card`}
               className={cn(
