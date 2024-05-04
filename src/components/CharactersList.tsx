@@ -43,16 +43,11 @@ export async function CharactersList({
             className="relative flex w-full gap-4 rounded-md bg-slate-100 p-4"
           >
             <div className="flex flex-col">
-              <Tooltip
-                tip="see more"
-                aria-label={`see more about ${character.name}`}
-              >
-                <strong>
-                  <Link href={`/character/${character.id}`}>
-                    {character.name}
-                  </Link>
-                </strong>
-              </Tooltip>
+              <strong>
+                <Link href={`/character/${character.id}`} title="see more">
+                  {character.name}
+                </Link>
+              </strong>
 
               <span>{character.nickName}</span>
             </div>
@@ -63,7 +58,12 @@ export async function CharactersList({
               <Link href={`/character/edit/${character.id}`}>
                 <EditIcon className="transition-transform hover:scale-105" />
               </Link>
-              <Link href={`/character/delete/${character.id}`}>
+              <Link
+                href={{
+                  pathname: `/character/delete/${character.id}`,
+                  query: { name: character.name },
+                }}
+              >
                 <TrashIcon className="transition-transform hover:scale-105" />
               </Link>
             </div>
