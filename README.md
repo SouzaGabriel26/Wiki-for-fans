@@ -4,6 +4,19 @@
 
 [see in production](https://wiki-for-fans.vercel.app/)
 
+## 🚀 Technologies used:
+
+| 🚀                | Technologies                                                                                                                                                            |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Next.js**       | React framework that enables server-side rendering, static site generation, and other advanced features for building modern web applications.                           |
+| **GraphQL**       | Query language for APIs that allows clients to request only the data they need, facilitating efficient and flexible communication between frontend and backend systems. |
+| **Apollo Server** | GraphQL server implementation that helps build and integrate GraphQL APIs with backend systems, providing tools for data fetching, caching, and schema management.      |
+| **Apollo Client** | State management library for JavaScript applications, providing an intuitive way to interact with GraphQL APIs on the client side, including caching and local state.   |
+| **Typescript**    | Superset of JavaScript with static types for better development experience.                                                                                             |
+| **Tailwind CSS**  | Utility-first CSS framework for building modern, responsive web interfaces with minimal custom CSS.                                                                     |
+| **Cloudinary**    | Cloud-based media management platform offering solutions for uploading, storing, transforming, and delivering images and videos on the web.                             |
+| **Prisma**        | ORM (Object-Relational Mapping) and database toolkit for Node.js and TypeScript applications, offering a type-safe and intuitive way to interact with databases.        |
+
 ## Getting Started
 
 First, run the development server:
