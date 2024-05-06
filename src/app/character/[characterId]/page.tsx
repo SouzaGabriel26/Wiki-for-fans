@@ -104,7 +104,9 @@ export default async function Page({ params }: Params) {
   function SerieCTA() {
     return (
       <div className="right-10 top-10 flex flex-col rounded-md bg-slate-200 p-2 md:absolute">
-        <Link href="#">{returnedCharacter.serie.name}</Link>
+        <Link href={`/serie/${returnedCharacter.serie.id}`}>
+          {returnedCharacter.serie.name}
+        </Link>
 
         {returnedCharacter.serie.platforms.length > 0 &&
           returnedCharacter.serie.platforms.map((platform, idx) => (
