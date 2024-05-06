@@ -39,7 +39,7 @@ export default async function Page({ params }: Props) {
     );
 
     if (updatedSerie) {
-      revalidatePath('/');
+      revalidatePath(`/serie/${params.id}`);
       return redirect(`/serie/${params.id}`);
     }
   }
