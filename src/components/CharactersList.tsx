@@ -36,7 +36,7 @@ export async function CharactersList({
 
   if (visibility === 'list') {
     return (
-      <div className="flex h-full w-full flex-col gap-1 px-16 py-2">
+      <div className="flex h-full w-full flex-col gap-1 px-6 py-2 md:px-16">
         {characters.map((character) => (
           <div
             key={character.id}
@@ -54,7 +54,7 @@ export async function CharactersList({
 
             <p>{character.serie.name}</p>
 
-            <div className="absolute right-2 flex gap-2">
+            <div className="right-2 flex gap-2 md:absolute">
               <Link href={`/character/edit/${character.id}`}>
                 <EditIcon className="transition-transform hover:scale-105" />
               </Link>
