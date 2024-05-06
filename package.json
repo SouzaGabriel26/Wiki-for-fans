@@ -19,6 +19,7 @@
     "@apollo/server": "^4.10.2",
     "@as-integrations/next": "^3.0.0",
     "@prisma/client": "5.11.0",
+    "@vercel/analytics": "^1.2.2",
     "cloudinary": "^2.2.0",
     "graphql": "^16.8.1",
     "next": "14.1.4",
