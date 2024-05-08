@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     'Wiki Series allows you to search for your favorite series and characters.',
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
   modal,
 }: Readonly<{

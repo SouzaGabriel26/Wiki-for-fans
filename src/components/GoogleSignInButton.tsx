@@ -22,14 +22,16 @@ export function GoogleSignInButton({
     <button
       onClick={handleClick}
       className={cn(
-        'focus:shadow-outline border-slate flex h-14 w-fit items-center justify-center space-x-2 rounded-lg border bg-white px-2 py-1 text-sm font-semibold transition-all duration-300 hover:border-slate-200 hover:bg-slate-300',
+        'focus:shadow-outline border-slate flex h-14 w-fit items-center justify-center rounded-lg border bg-white px-2 py-1 text-sm font-semibold transition-all duration-300 hover:border-slate-200 hover:bg-slate-300',
         className,
       )}
       title="Sign in with Google"
       {...props}
     >
       <Image src={googleLogo} alt="Google Logo" width={20} height={20} />
-      <span className="hidden text-slate-800 md:block">{children}</span>
+      {children && (
+        <span className="ml-2 hidden text-slate-800 md:block">{children}</span>
+      )}
     </button>
   );
 }

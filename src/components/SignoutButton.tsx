@@ -21,7 +21,7 @@ export function SignOutButton({ className, ...props }: SignOutButtonPorps) {
       {...props}
     >
       <LogoutIcon />
-      <span className="hidden md:block">logout</span>
+      <span className="hidden md:block">Sign out</span>
     </button>
   );
 }
