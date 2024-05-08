@@ -1,6 +1,7 @@
 import { revalidatePath } from 'next/cache';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import { getServerSession } from 'next-auth';
 
 import { CreateCharacterArgs } from '@/app/api/configs/context/prismaMutations';
 import { NavigateBack } from '@/components/NavigateBack';
@@ -70,6 +71,12 @@ async function serverActionToCreateCharacter(formData: FormData) {
 }
 
 export default async function Page({ searchParams }: Props) {
+  const session = await getServerSession();
+
+  if (!session) {
+    return redirect('/');
+  }
+
   return (
     <div className="flex h-full flex-col p-4">
       <NavigateBack className="absolute left-1 top-1 hover:underline md:left-5 md:top-4" />

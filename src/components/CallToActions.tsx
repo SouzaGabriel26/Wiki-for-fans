@@ -1,10 +1,15 @@
 import Link from 'next/link';
+import { getServerSession } from 'next-auth';
 import React from 'react';
 
 import CharacterIcon from './CharacterIcon';
 import SerieIcon from './SerieIcon';
 
-export default function CallToActions() {
+export default async function CallToActions() {
+  const sessions = await getServerSession();
+
+  if (!sessions) return null;
+
   return (
     <div className="fixed bottom-2 right-3 flex flex-col items-center justify-center gap-2 md:absolute md:right-5">
       {actions.map((action) => (

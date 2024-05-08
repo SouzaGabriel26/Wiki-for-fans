@@ -1,6 +1,7 @@
 import { revalidatePath } from 'next/cache';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import { getServerSession } from 'next-auth';
 import { z } from 'zod';
 
 import { NavigateBack } from '@/components/NavigateBack';
@@ -72,8 +73,13 @@ type Props = {
   };
 };
 
-export default function Page({ searchParams }: Props) {
+export default async function Page({ searchParams }: Props) {
   const { error } = searchParams;
+  const session = await getServerSession();
+
+  if (!session) {
+    return redirect('/');
+  }
 
   return (
     <div className="flex h-full flex-col p-4">
