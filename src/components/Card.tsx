@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { getServerSession } from 'next-auth';
 
 import { constants } from '@/config/constants';
 import { Character } from '@/data/character';
@@ -12,7 +13,9 @@ type CardProps = {
   character: Character;
 };
 
-export function Card({ character }: CardProps) {
+export async function Card({ character }: CardProps) {
+  const session = await getServerSession();
+
   return (
     <div
       tabIndex={0}
@@ -25,22 +28,26 @@ export function Card({ character }: CardProps) {
             {character.name}
           </h2>
           <div className="flex items-center justify-center gap-2">
-            <Link
-              href={`/character/edit/${character.id}`}
-              className="transition-all hover:scale-110"
-            >
-              <EditIcon />
-            </Link>
+            {session && (
+              <Link
+                href={`/character/edit/${character.id}`}
+                className="transition-all hover:scale-110"
+              >
+                <EditIcon />
+              </Link>
+            )}
             <p className="text-gray-300">{character.nickName || '-'}</p>
-            <Link
-              href={{
-                pathname: `/character/delete/${character.id}`,
-                query: { name: character.name },
-              }}
-              className="transition-all hover:scale-110"
-            >
-              <TrashIcon />
-            </Link>
+            {session && (
+              <Link
+                href={{
+                  pathname: `/character/delete/${character.id}`,
+                  query: { name: character.name },
+                }}
+                className="transition-all hover:scale-110"
+              >
+                <TrashIcon />
+              </Link>
+            )}
           </div>
         </div>
         <Link

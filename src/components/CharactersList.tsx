@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { getServerSession } from 'next-auth';
 
 import { Card } from '@/components/Card';
 import { Tooltip } from '@/components/Tooltip';
@@ -17,6 +18,8 @@ export async function CharactersList({
   serieId,
   visibility = 'card',
 }: CharactersListProps) {
+  const session = await getServerSession();
+
   const characterDatasource = createCharacterDatasource();
   const { returnedCharacters: characters } =
     await characterDatasource.getAllBySerieId(serieId);
@@ -54,19 +57,21 @@ export async function CharactersList({
 
             <p>{character.serie.name}</p>
 
-            <div className="right-2 flex gap-2 md:absolute">
-              <Link href={`/character/edit/${character.id}`}>
-                <EditIcon className="transition-transform hover:scale-105" />
-              </Link>
-              <Link
-                href={{
-                  pathname: `/character/delete/${character.id}`,
-                  query: { name: character.name },
-                }}
-              >
-                <TrashIcon className="transition-transform hover:scale-105" />
-              </Link>
-            </div>
+            {session && (
+              <div className="right-2 flex gap-2 md:absolute">
+                <Link href={`/character/edit/${character.id}`}>
+                  <EditIcon className="transition-transform hover:scale-105" />
+                </Link>
+                <Link
+                  href={{
+                    pathname: `/character/delete/${character.id}`,
+                    query: { name: character.name },
+                  }}
+                >
+                  <TrashIcon className="transition-transform hover:scale-105" />
+                </Link>
+              </div>
+            )}
           </div>
         ))}
       </div>
