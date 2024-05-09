@@ -8,19 +8,19 @@ import { Option } from './Option';
 import { SmallScreenAddBtn } from './SmallScreenBtn';
 import Input from '../Input';
 
-type InputMultiSelectProps = {
+type MultiInputProps = {
   id: string;
   name: string;
   placeholder: string;
   defaultOptions?: string[];
 };
 
-export default function InputMultiSelect({
+export function MultiInput({
   id,
   name,
   placeholder,
   defaultOptions = [],
-}: InputMultiSelectProps) {
+}: MultiInputProps) {
   const [inputValue, setInputValue] = useState('');
   const [options, setOptions] = useState<string[]>(defaultOptions);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -33,7 +33,10 @@ export default function InputMultiSelect({
     (inputValue: string) => {
       if (options.includes(inputValue.toLowerCase())) return;
 
-      setOptions((prevOptions) => [...prevOptions, inputValue.toLowerCase()]);
+      setOptions((prevOptions) => [
+        ...prevOptions,
+        inputValue.toLowerCase().trim(),
+      ]);
     },
     [options],
   );
@@ -70,21 +73,34 @@ export default function InputMultiSelect({
       <label htmlFor={id} className="ml-1 text-xs text-slate-400">
         press Enter or Tab to add a option
       </label>
-      <Input
-        value={inputValue}
-        id={id}
-        name={name}
-        disabled={isDisabled}
-        placeholder={placeholder}
-        onKeyDown={handleKeyDown}
-        onChange={(event) => setInputValue(event.target.value)}
-        className={cn('md:mb-2', isDisabled ? 'cursor-not-allowed' : '')}
-      />
-      <input
-        type="hidden"
-        name={`${name}Array`}
-        value={JSON.stringify(options)}
-      />
+
+      <div className="relative rounded-md border border-slate-500">
+        <Input
+          value={inputValue}
+          id={id}
+          name={name}
+          disabled={isDisabled}
+          placeholder={placeholder}
+          onKeyDown={handleKeyDown}
+          onChange={(event) => setInputValue(event.target.value)}
+          className={cn('border-none', isDisabled ? 'cursor-not-allowed' : '')}
+        />
+        <input
+          type="hidden"
+          name={`${name}Array`}
+          value={JSON.stringify(options)}
+        />
+
+        <div className={cn(options.length && 'p-2 pt-0 leading-7')}>
+          {options.map((option) => (
+            <Option
+              option={option}
+              key={option}
+              onDelete={handleDeleteOption}
+            />
+          ))}
+        </div>
+      </div>
 
       <SmallScreenAddBtn
         disabled={inputValue === '' || isDisabled}
@@ -98,13 +114,9 @@ export default function InputMultiSelect({
       )}
 
       <div className="relative flex max-w-full flex-wrap gap-1 rounded-md p-2">
-        {options.map((option) => (
-          <Option option={option} key={option} onDelete={handleDeleteOption} />
-        ))}
-
         {options.length > 1 && (
           <button
-            className="absolute -top-10 right-0 text-xs hover:scale-105 md:top-0"
+            className="absolute right-0 text-xs hover:scale-105 md:top-0"
             onClick={() => setOptions([])}
             type="button"
           >
