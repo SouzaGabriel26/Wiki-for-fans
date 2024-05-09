@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import Input from '@/components/Input';
-import InputMultiSelect from '@/components/InputMultiSelect';
+import { MultiInput } from '@/components/MultiInput';
 import { SubmitButton } from '@/components/SubmitButton';
 import TextArea from '@/components/TextArea';
 import { CharacterById } from '@/data/character';
@@ -131,21 +131,21 @@ export default async function CharacterForm({
           accept="image/png, image/jpeg, image/jpg"
         />
 
-        <InputMultiSelect
+        <MultiInput
           id="personalities"
           name="personalities"
           placeholder="Personalities"
           defaultOptions={character?.personalities}
         />
 
-        <InputMultiSelect
+        <MultiInput
           id="friends"
           name="friends"
           placeholder="Friends"
           defaultOptions={character?.friends}
         />
 
-        <InputMultiSelect
+        <MultiInput
           id="enemies"
           name="enemies"
           placeholder="Enemies"

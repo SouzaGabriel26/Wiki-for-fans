@@ -1,6 +1,6 @@
 import { CreateSerieArgs } from '@/app/api/configs/context/prismaMutations';
 import Input from '@/components/Input';
-import InputMultiSelect from '@/components/InputMultiSelect';
+import { MultiInput } from '@/components/MultiInput';
 import { SubmitButton } from '@/components/SubmitButton';
 import TextArea from '@/components/TextArea';
 
@@ -55,7 +55,7 @@ export default async function SerieForm({
           defaultValue={serie?.seasons}
         />
       </div>
-      <InputMultiSelect
+      <MultiInput
         id="platforms"
         name="platforms"
         placeholder="Available platforms"

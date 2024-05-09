@@ -7,11 +7,11 @@ type OptionProps = {
 
 export function Option({ option, onDelete }: OptionProps) {
   return (
-    <span className="relative mr-1 rounded-md border border-slate-500 bg-gray-200 p-1 pr-6">
+    <span className="relative mr-1.5 rounded-md border bg-gray-200 pl-1 pr-6 shadow">
       {option}
       <button
         type="button"
-        className="absolute right-1"
+        className="absolute -top-0.5 right-1"
         onClick={() => onDelete(option)}
       >
         <CloseModalIcon className="w-4 rounded-full hover:scale-105" />
