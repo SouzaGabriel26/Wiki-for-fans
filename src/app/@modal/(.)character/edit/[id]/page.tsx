@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 
 import { CreateCharacterArgs } from '@/app/api/configs/context/prismaMutations';
 import CharacterForm from '@/app/character/components/CharacterForm';
+import { ArrowBackIcon } from '@/components/icons/ArrowBackIcon';
 import Modal from '@/components/Modal';
 import { NavigateBack } from '@/components/NavigateBack';
 import { createCharacterDatasource } from '@/data/character';
@@ -81,7 +82,9 @@ export default async function Page({ params }: Props) {
 
   return (
     <Modal contentWidth="w-full max-w-[380px]">
-      <NavigateBack className="absolute left-1 top-1 md:left-2 md:top-2" />
+      <NavigateBack className="absolute left-1 top-1 md:left-2 md:top-2">
+        <ArrowBackIcon className="transition hover:scale-110" />
+      </NavigateBack>
       <h1 className="text-xl text-slate-800">Edit {character.name}</h1>
 
       <div className="max-h-[500px] overflow-y-auto p-2">

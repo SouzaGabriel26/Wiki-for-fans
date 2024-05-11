@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 
 import { CreateSerieArgs } from '@/app/api/configs/context/prismaMutations';
 import SerieForm from '@/app/serie/components/SerieForm';
+import { ArrowBackIcon } from '@/components/icons/ArrowBackIcon';
 import Modal from '@/components/Modal';
 import { NavigateBack } from '@/components/NavigateBack';
 import { createSerieDatasource } from '@/data/serie';
@@ -46,7 +47,9 @@ export default async function Page({ params }: Props) {
 
   return (
     <Modal contentWidth="w-full max-w-[380px]">
-      <NavigateBack className="absolute left-2 top-1 transition-all hover:underline" />
+      <NavigateBack className="absolute left-2 top-1 transition-all hover:underline">
+        <ArrowBackIcon className="transition hover:scale-110" />
+      </NavigateBack>
 
       <h1>
         Edit Serie: <strong>{serie.name}</strong>

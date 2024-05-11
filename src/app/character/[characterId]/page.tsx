@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { ArrowBackIcon } from '@/components/icons/ArrowBackIcon';
 import { NavigateBack } from '@/components/NavigateBack';
 import { constants } from '@/config/constants';
 import { createCharacterDatasource } from '@/data/character';
@@ -19,7 +20,9 @@ export default async function Page({ params }: Params) {
 
   return (
     <>
-      <NavigateBack className="absolute left-2 top-2 hover:underline md:left-10 md:top-10" />
+      <NavigateBack className="absolute left-2 top-2 hover:underline md:left-10 md:top-10">
+        <ArrowBackIcon className="transition hover:scale-110" />
+      </NavigateBack>
       <div className="flex flex-col items-center justify-center gap-4 overflow-hidden p-4">
         <h1 className="text-center text-2xl">{returnedCharacter.name}</h1>
         <SerieCTA />
