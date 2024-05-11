@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getServerSession } from 'next-auth';
 
+import { ArrowBackIcon } from '@/components/icons/ArrowBackIcon';
 import { EditIcon } from '@/components/icons/EditIcon';
 import { TrashIcon } from '@/components/icons/TrashIcon';
 import { NavigateBack } from '@/components/NavigateBack';
@@ -27,7 +28,9 @@ export default async function Page({ params }: Params) {
 
   return (
     <div className="relative flex h-full flex-col space-y-2 p-4 text-center">
-      <NavigateBack className="absolute left-1 top-1 hover:underline md:left-5 md:top-4" />
+      <NavigateBack className="absolute left-1 top-1 hover:underline md:left-5 md:top-4">
+        <ArrowBackIcon className="transition hover:scale-110" />
+      </NavigateBack>
 
       {session && (
         <div className="absolute right-1 top-0 mt-0 flex items-center gap-2">
